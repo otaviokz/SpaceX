@@ -23,3 +23,5 @@
 "filter_years" = "Years";
 "filter_status" = "Status";
 "filter_success" = "Successfull landings only";
+"list_error_title" = "Error";
+"list_error_body" = "Unable to load data. Please check your network connection or try again later";

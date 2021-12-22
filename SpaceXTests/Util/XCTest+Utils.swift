@@ -14,4 +14,17 @@ extension XCTestCase {
     func waitForExpectations(handler: XCWaitCompletionHandler? = nil) {
         waitForExpectations(timeout: Self.defaultTimeout, handler: handler)
     }
+
+    func waitForExpectationWithPredicate(timeout: TimeInterval = 10.0, file _: StaticString = #file, line _: UInt = #line, evaluation: @escaping () -> Bool) {
+        let predicate = NSPredicate { _, _ -> Bool in
+            evaluation()
+        }
+
+        // Try to attempt a sync evaluation before waiting
+        if evaluation() {
+            return
+        }
+        let expectation = self.expectation(for: predicate, evaluatedWith: NSObject())
+        self.wait(for: [expectation], timeout: timeout)
+    }
 }
