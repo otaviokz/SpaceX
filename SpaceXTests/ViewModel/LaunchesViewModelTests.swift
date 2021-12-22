@@ -20,10 +20,7 @@ final class LaunchesViewModelTests: XCTestCase {
         api.launchesPromise?(.success(launchesQuery))
 
         // Then
-        waitForExpectationWithPredicate {
-            sut.company != nil && sut.launches != nil
-        }
-
+        waitForExpectationWithPredicate { sut.company != nil && sut.launches != nil }
         XCTAssertEqual(sut.launches?.count, 3)
     }
 

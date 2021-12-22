@@ -7,15 +7,34 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct LaunchesView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
+    @ObservedObject private(set) var viewModel: ViewModel
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack(spacing: 0) {
+            if let company = viewModel.company {
+                CompanyView(company: company)
+            }
+
+            if let launches = viewModel.launches {
+                List {
+                    ForEach(launches, id: \.self) { launch in
+                        Text(launch.missionName)
+                    }
+                }
+                .listStyle(.grouped)
+            }
+        }
+        .padding(.top, Metric.top)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+private extension LaunchesView {
+    struct Metric {
+        static var top: CGFloat { 20 }
     }
 }
+

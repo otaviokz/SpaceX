@@ -6,7 +6,6 @@
 //
 
 import Foundation
-@testable import SpaceX
 
 class JsonLoader {
     static func loadJson<T: Decodable>(_ filename: String) throws -> T {

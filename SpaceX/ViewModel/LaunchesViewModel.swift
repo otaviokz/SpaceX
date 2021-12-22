@@ -16,7 +16,7 @@ protocol LaunchesViewModeling {
     func onAppear()
 }
 
-final class LaunchesViewModel {
+final class LaunchesViewModel: ObservableObject {
     // MARK: - Properties
 
     private let api: SpaceXAPIClientType
