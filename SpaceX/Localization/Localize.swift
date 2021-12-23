@@ -36,6 +36,8 @@ enum LocalizationKey: String {
     case filter_years
     case filter_status
     case filter_success
+    case list_error_title
+    case list_error_body
 }
 
 enum FormatedLocalizationKey: String {

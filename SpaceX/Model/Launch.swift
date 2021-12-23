@@ -45,6 +45,12 @@ extension Launch: Comparable {
     }
 }
 
+extension Launch: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(missionName)
+    }
+}
+
 private extension Launch {
     struct DateFormatting {
         static var utc: DateFormatter {
