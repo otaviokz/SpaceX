@@ -18,7 +18,7 @@ struct Links: Codable, Equatable {
     }
     
     private var allInfoLinks: [(LocalizationKey, URL?)] {
-        [(.main_wiki, wikipedia), (.main_webcast, webcast), (.main_article, article)]
+        [(.launch_wiki, wikipedia), (.launch_webcast, webcast), (.launch_article, article)]
     }
     
     var infoLinks: [(LocalizationKey, URL)] {

@@ -20,9 +20,9 @@ class LinksTests: XCTestCase {
         XCTAssertEqual(links.map { $0.hasInfo }, [true, true, true])
 
         let infoLinks = links.first?.infoLinks
-        XCTAssertEqual(infoLinks?[0].0, .main_wiki)
-        XCTAssertEqual(infoLinks?[1].0, .main_webcast)
-        XCTAssertEqual(infoLinks?[2].0, .main_article)
+        XCTAssertEqual(infoLinks?[0].0, .launch_wiki)
+        XCTAssertEqual(infoLinks?[1].0, .launch_webcast)
+        XCTAssertEqual(infoLinks?[2].0, .launch_article)
         XCTAssertEqual(infoLinks?[0].1, URL(string: expectedWikipedias[0]))
         XCTAssertEqual(infoLinks?[1].1, URL(string: expectedWebcasts[0]))
         XCTAssertEqual(infoLinks?[2].1, URL(string: expectedArticles[0]))
@@ -33,9 +33,9 @@ private extension LinksTests {
 
     var expectedInfoLinks: [(LocalizationKey, URL?)] {
         [
-            (.main_wiki, URL(string: expectedWikipedias[0])),
-            (.main_webcast, URL(string: expectedWebcasts[0])),
-            (.main_article, URL(string: expectedArticles[0]))
+            (.launch_wiki, URL(string: expectedWikipedias[0])),
+            (.launch_webcast, URL(string: expectedWebcasts[0])),
+            (.launch_article, URL(string: expectedArticles[0]))
         ]
     }
     var expectedWebcasts: [String] {

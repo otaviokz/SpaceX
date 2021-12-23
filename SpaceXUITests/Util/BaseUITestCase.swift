@@ -18,4 +18,3 @@ class BaseUITestCase: XCTestCase {
         app.launch()
     }
 }
-

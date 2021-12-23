@@ -13,7 +13,7 @@ struct SpaceXApp: App {
 
     var body: some Scene {
         WindowGroup {
-            LaunchesView(viewModel: LaunchesViewModel(api: runtimeApi))
+            MainView(viewModel: LaunchesViewModel(api: runtimeApi))
         }
     }
 
