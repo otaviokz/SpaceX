@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct LaunchRowView: View {
-    let launch: Launch
+    private let launch: Launch
+    @State private var imageCache: ImageCaching = RuntimeService.imageCache
+
+    init(launch: Launch) {
+        self.launch = launch
+    }
 
     var body: some View {
         HStack(alignment: .top, spacing: Metric.smallSpacing) {
-            // TODO: Replace/modify with caching logic
-            AsyncImage(url: launch.links.patch.small) { phase in
-                switch phase {
-                case .success(let image): iconView(image)
-                default: iconView()
+            if let image = imageCache[launch.links.patch.small] {
+                iconView(image)
+            } else {
+                AsyncImage(url: launch.links.patch.small) { phase in
+                    switch phase {
+                    case .success(let image):
+                        iconView(image, url: launch.links.patch.small)
+                    default: iconView()
+                    }
                 }
             }
 
@@ -35,8 +44,12 @@ struct LaunchRowView: View {
 }
 
 private extension LaunchRowView {
-    func iconView(_ image: Image = Image("")) -> some View {
-        image
+    func iconView(_ image: Image? = nil, url: URL? = nil) -> some View {
+        if let image = image, let url = url {
+            imageCache[url] = image
+        }
+        
+        return (image ?? Image(""))
             .resizable()
             .scaledToFit()
             .frame(width: Metric.iconSize, height: Metric.iconSize)

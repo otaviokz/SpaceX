@@ -12,6 +12,10 @@ struct RuntimeService {
         isRunningTests ? MockHTTPClient.shared.populate() : HTTPClient.shared
     }
 
+    static var imageCache: ImageCaching {
+        isRunningTests ? MockImageCache() : ImageCache.shared
+    }
+
     static var isRunningTests: Bool {
         #if DEBUG
         ProcessInfo().environment["UITesting"] == "YES"

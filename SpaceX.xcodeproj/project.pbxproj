@@ -31,6 +31,9 @@
 		30D541542773378C0018B499 /* TestRockets_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D5414F2773378C0018B499 /* TestRockets_v4.json */; };
 		30D541552773378C0018B499 /* TestPatches_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D541502773378C0018B499 /* TestPatches_v4.json */; };
 		30E0FF082779D0510029EB4E /* UITestCase+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF072779D0510029EB4E /* UITestCase+Shortcuts.swift */; };
+		30E0FF0B277A04BF0029EB4E /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0A277A04BF0029EB4E /* ImageCache.swift */; };
+		30E0FF0E277A0A570029EB4E /* ThreadSafeCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */; };
+		30E0FF11277A11870029EB4E /* MockImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0F277A11750029EB4E /* MockImageCache.swift */; };
 		30E241F127739EAE00430D0E /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F027739EAE00430D0E /* QueryResult.swift */; };
 		30E241F32773A08100430D0E /* SpaceXAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F22773A08100430D0E /* SpaceXAPIClient.swift */; };
 		30E241F52773A13D00430D0E /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F42773A13D00430D0E /* HTTPClient.swift */; };
@@ -100,6 +103,9 @@
 		30D5414F2773378C0018B499 /* TestRockets_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestRockets_v4.json; sourceTree = "<group>"; };
 		30D541502773378C0018B499 /* TestPatches_v4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestPatches_v4.json; sourceTree = "<group>"; };
 		30E0FF072779D0510029EB4E /* UITestCase+Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITestCase+Shortcuts.swift"; sourceTree = "<group>"; };
+		30E0FF0A277A04BF0029EB4E /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeCache.swift; sourceTree = "<group>"; };
+		30E0FF0F277A11750029EB4E /* MockImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageCache.swift; sourceTree = "<group>"; };
 		30E241F027739EAE00430D0E /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
 		30E241F22773A08100430D0E /* SpaceXAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXAPIClient.swift; sourceTree = "<group>"; };
 		30E241F42773A13D00430D0E /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -164,13 +170,14 @@
 		30D540F227732F750018B499 /* SpaceX */ = {
 			isa = PBXGroup;
 			children = (
-				30E2420A277487FB00430D0E /* TestUtils */,
+				30E0FF0C277A0A430029EB4E /* Caching */,
 				30D540F327732F750018B499 /* SpaceXApp.swift */,
 				30E241EC27739D6E00430D0E /* API */,
 				30D5413A2773342F0018B499 /* Localization */,
 				30D5412127732FBF0018B499 /* Model */,
 				30D5411E27732FA90018B499 /* View */,
 				30D5411F27732FB30018B499 /* ViewModel */,
+				30E2420A277487FB00430D0E /* TestUtils */,
 				30D5411D27732F8B0018B499 /* Support Files */,
 				30D540F927732F760018B499 /* Preview Content */,
 			);
@@ -218,6 +225,7 @@
 		30D5411E27732FA90018B499 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				30E0FF09277A048F0029EB4E /* Cache */,
 				30D540F527732F750018B499 /* MainView.swift */,
 				30E242042773BF3C00430D0E /* CompanyView.swift */,
 				30E242192774B76600430D0E /* LaunchRowView.swift */,
@@ -264,6 +272,7 @@
 				30D54138277332D90018B499 /* JsonLoader.swift */,
 				30E241FB2773B0EC00430D0E /* XCTest+Utils.swift */,
 				30E2420D27748A4300430D0E /* MockHTTPClient.swift */,
+				30E0FF0F277A11750029EB4E /* MockImageCache.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -287,6 +296,22 @@
 				30D5414F2773378C0018B499 /* TestRockets_v4.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		30E0FF09277A048F0029EB4E /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		30E0FF0C277A0A430029EB4E /* Caching */ = {
+			isa = PBXGroup;
+			children = (
+				30E0FF0A277A04BF0029EB4E /* ImageCache.swift */,
+				30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */,
+			);
+			path = Caching;
 			sourceTree = "<group>";
 		};
 		30E241EC27739D6E00430D0E /* API */ = {
@@ -489,10 +514,12 @@
 				30E2421A2774B76600430D0E /* LaunchRowView.swift in Sources */,
 				30E242002773BA3000430D0E /* LaunchesViewModel+Model.swift in Sources */,
 				30E2420C2774880800430D0E /* RuntimeService.swift in Sources */,
+				30E0FF0E277A0A570029EB4E /* ThreadSafeCache.swift in Sources */,
 				30E241F52773A13D00430D0E /* HTTPClient.swift in Sources */,
 				30E2420F27748A5100430D0E /* MockHTTPClient.swift in Sources */,
 				30E241F32773A08100430D0E /* SpaceXAPIClient.swift in Sources */,
 				30D5412A277331F60018B499 /* Links.swift in Sources */,
+				30E0FF0B277A04BF0029EB4E /* ImageCache.swift in Sources */,
 				30D54129277331F60018B499 /* Patch.swift in Sources */,
 				30E2421227748F0D00430D0E /* JsonLoader.swift in Sources */,
 				30E242052773BF3C00430D0E /* CompanyView.swift in Sources */,
@@ -501,6 +528,7 @@
 				30D540F427732F750018B499 /* SpaceXApp.swift in Sources */,
 				30D54128277331F60018B499 /* Launch.swift in Sources */,
 				30D54127277331F60018B499 /* Company.swift in Sources */,
+				30E0FF11277A11870029EB4E /* MockImageCache.swift in Sources */,
 				30E241F72773A21100430D0E /* URLRequest+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
