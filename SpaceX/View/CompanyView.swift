@@ -11,21 +11,26 @@ struct CompanyView: View {
     let company: Company
     
     var body: some View {
-        HStack {
-            Text(company.name)
-                .font(Style.titleFont)
+            Text(company.localizedDescription)
+                .font(Style.font)
                 .foregroundColor(.primary)
-                .padding(.vertical, Metric.titleSpacing)
-        }
+                .multilineTextAlignment(.leading)
+                .padding(.horizontal, Metric.spacing)
     }
 }
 
 private extension CompanyView {
     struct Metric {
-        static var titleSpacing: CGFloat { 4 }
+        static var spacing: CGFloat { 16 }
     }
 
     struct Style {
-        static var titleFont: Font { .system(size: 24, weight: .semibold) }
+        static var font: Font { .system(size: 17) }
+    }
+}
+
+private extension Company {
+    var localizedDescription: String {
+        localize(.company_info, [name, founder, "\(foundationYear)", "\(employees)", "\(launchSites)", "\(valuationUSD)"])
     }
 }

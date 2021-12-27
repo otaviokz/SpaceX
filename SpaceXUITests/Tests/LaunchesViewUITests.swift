@@ -25,10 +25,26 @@ class LaunchesViewUITests: BaseUITestCase {
     }
 
     func testBasics() throws {
-        XCTAssertTrue(app.staticTexts["SpaceX"].waitForExistence(timeout: 10))
-        XCTAssertEqual(app.tables.firstMatch.cells.count, 3)
-        XCTAssertTrue(app.tables.firstMatch.cells["Falcon 9 Test Flight"].exists)
-        XCTAssertTrue(app.tables.firstMatch.cells["DemoSat"].exists)
-        XCTAssertTrue(app.tables.firstMatch.cells["FalconSat"].exists)
+        // Then
+        XCTAssertTrue(app.staticTexts[companyDescription].waitForExistence(timeout: 10))
+
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 4)
+
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Falcon 9 Test Flight"), true)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Date/Time:"), true)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "06/04/10 at 19:45"), true)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Rocket:"), true)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Falcon 9 / rocket"), true)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Days since now:"), true)
+        XCTAssertEqual(app.cell(row: 1)?.images["success"].exists, true)
+
+        XCTAssertEqual(app.cell(row: 2)?.images["failure"].exists, true)
+        XCTAssertEqual(app.cell(row: 3)?.images["failure"].exists, true)
+    }
+}
+
+private extension LaunchesViewUITests {
+    var companyDescription: String {
+        "SpaceX was founded by Elon Musk in 2002. It has now 9500 employees, 3 launch sites, and is valued at USD 74000000000."
     }
 }
