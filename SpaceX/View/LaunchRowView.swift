@@ -10,6 +10,7 @@ import SwiftUI
 struct LaunchRowView: View {
     private let launch: Launch
     @State private var imageCache: ImageCaching = RuntimeService.imageCache
+    @State private var infoLinks: InfoLinks?
 
     init(launch: Launch) {
         self.launch = launch
@@ -19,12 +20,15 @@ struct LaunchRowView: View {
         HStack(alignment: .top, spacing: Metric.smallSpacing) {
             if let image = imageCache[launch.links.patch.small] {
                 iconView(image)
+                    .padding(.leading, -Metric.smallSpacing)
             } else {
                 AsyncImage(url: launch.links.patch.small) { phase in
                     switch phase {
                     case .success(let image):
                         iconView(image, url: launch.links.patch.small)
+                            .padding(.leading, -Metric.smallSpacing)
                     default: iconView()
+                            .padding(.leading, -Metric.smallSpacing)
                     }
                 }
             }
@@ -37,13 +41,37 @@ struct LaunchRowView: View {
             }
             .frame(maxWidth: .infinity)
 
-            iconView(Asset.statusImage(launch.success))
-                .foregroundColor(launch.success == true ? .blue : .gray)
+            VStack {
+                iconView(Asset.statusImage(launch.success))
+                    .foregroundColor(.gray)
+                if launch.links.hasInfo {
+                    Spacer()
+                    iconView(Asset.info)
+                        .foregroundColor(.blue)
+                        .identifierKey(.launch_links)
+                        .onTapGesture { infoLinks = InfoLinks(pairs: launch.links.infoLinks) }
+                }
+            }
+            .padding(.vertical, Metric.smallSpacing)
+            .padding(.trailing, -Metric.smallSpacing)
+        }
+        .actionSheet(item: $infoLinks) { links in
+            ActionSheet(title: Text(.launch_links), message: nil, buttons: links.actions)
         }
     }
 }
 
 private extension LaunchRowView {
+    struct InfoLinks: Identifiable {
+        let id = UUID()
+        let pairs: [(LocalizationKey, URL)]
+
+        var actions: [ActionSheet.Button] {
+            pairs.map { key, url in
+                .default(Text(key)) { UIApplication.shared.open(url) } } + [.cancel(Text(.launch_cancel))]
+        }
+    }
+
     func iconView(_ image: Image? = nil, url: URL? = nil) -> some View {
         if let image = image, let url = url {
             imageCache[url] = image
@@ -53,7 +81,6 @@ private extension LaunchRowView {
             .resizable()
             .scaledToFit()
             .frame(width: Metric.iconSize, height: Metric.iconSize)
-            .padding(.leading, -Metric.smallSpacing)
     }
 
     var daysLabel: String {
@@ -101,6 +128,7 @@ private extension LaunchRowView {
     }
 
     struct Asset {
+        static var info: Image { Image("info") }
         static var badgePlacehoder: Image { Image("badge_placeholder") }
         static func statusImage(_ successful: Bool?) -> Image {
             guard let successful = successful else { return Image("") }

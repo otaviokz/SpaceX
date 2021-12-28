@@ -27,8 +27,6 @@
                 "large": "https://images2.imgbox.com/be/e7/iNqsqVYM_o.png"
             },
             "webcast": "https://www.youtube.com/watch?v=Lk4zQ2wP-Nc",
-            "article": "https://www.space.com/3590-spacex-falcon-1-rocket-fails-reach-orbit.html",
-            "wikipedia": "https://en.wikipedia.org/wiki/DemoSat"
         },
         "tbd": false,
         "rocket": {
@@ -47,9 +45,6 @@
                 "small": "https://images2.imgbox.com/3c/0e/T8iJcSN3_o.png",
                 "large": "https://images2.imgbox.com/40/e3/GypSkayF_o.png"
             },
-            "webcast": "https://www.youtube.com/watch?v=0a_00nJ_Y88",
-            "article": "https://www.space.com/2196-spacex-inaugural-falcon-1-rocket-lost-launch.html",
-            "wikipedia": "https://en.wikipedia.org/wiki/DemoSat"
         },
         "tbd": false,
         "rocket": {
