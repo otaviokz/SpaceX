@@ -28,3 +28,21 @@ extension XCUIApplication {
         tables.cells(containing: containing)
     }
 }
+
+func XCTAssertExists(_ element: XCUIElement?, _ message: @autoclosure () -> String = "", file: StaticString = #filePath, line: UInt = #line) {
+    guard let element = element else {
+        XCTFail(message())
+        return
+    }
+
+    XCTAssertTrue(element.exists)
+}
+
+func XCTAssertNotFound(_ element: XCUIElement?, _ message: @autoclosure () -> String = "", file: StaticString = #filePath, line: UInt = #line) {
+    guard let element = element else {
+        XCTFail(message())
+        return
+    }
+    
+    XCTAssertFalse(element.exists)
+}

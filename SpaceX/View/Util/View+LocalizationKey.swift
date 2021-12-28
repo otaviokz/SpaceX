@@ -1,5 +1,5 @@
 //
-//  View+Accessibility.swift
+//  View+LocalizationKey.swift
 //  SpaceX
 //
 //  Created by Otávio Zabaleta on 28/12/2021.

@@ -56,7 +56,7 @@ struct LaunchRowView: View {
             .padding(.trailing, -Metric.smallSpacing)
         }
         .actionSheet(item: $infoLinks) { links in
-            ActionSheet(title: Text(.launch_links), message: nil, buttons: links.actions)
+            ActionSheet(title: Text(.launch_links), buttons: links.actions)
         }
     }
 }
