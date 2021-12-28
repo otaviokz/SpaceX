@@ -35,6 +35,7 @@
 		30E0FF0E277A0A570029EB4E /* ThreadSafeCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */; };
 		30E0FF11277A11870029EB4E /* MockImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0F277A11750029EB4E /* MockImageCache.swift */; };
 		30E0FF14277B6AA10029EB4E /* UIView+LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF13277B6AA10029EB4E /* UIView+LocalizationKey.swift */; };
+		30E0FF16277B8C490029EB4E /* AlertButton+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF15277B8C490029EB4E /* AlertButton+URL.swift */; };
 		30E241F127739EAE00430D0E /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F027739EAE00430D0E /* QueryResult.swift */; };
 		30E241F32773A08100430D0E /* SpaceXAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F22773A08100430D0E /* SpaceXAPIClient.swift */; };
 		30E241F52773A13D00430D0E /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F42773A13D00430D0E /* HTTPClient.swift */; };
@@ -44,7 +45,7 @@
 		30E241FE2773B61400430D0E /* LaunchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241FD2773B61400430D0E /* LaunchesViewModel.swift */; };
 		30E242002773BA3000430D0E /* LaunchesViewModel+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241FF2773BA3000430D0E /* LaunchesViewModel+Model.swift */; };
 		30E242032773BB1300430D0E /* LaunchesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E242022773BB1300430D0E /* LaunchesViewModelTests.swift */; };
-		30E242052773BF3C00430D0E /* CompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E242042773BF3C00430D0E /* CompanyView.swift */; };
+		30E242052773BF3C00430D0E /* CompanyRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E242042773BF3C00430D0E /* CompanyRowView.swift */; };
 		30E24208277480D800430D0E /* BaseUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E24207277480D800430D0E /* BaseUITestCase.swift */; };
 		30E2420C2774880800430D0E /* RuntimeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E2420B2774880800430D0E /* RuntimeService.swift */; };
 		30E2420F27748A5100430D0E /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E2420D27748A4300430D0E /* MockHTTPClient.swift */; };
@@ -108,6 +109,7 @@
 		30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeCache.swift; sourceTree = "<group>"; };
 		30E0FF0F277A11750029EB4E /* MockImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageCache.swift; sourceTree = "<group>"; };
 		30E0FF13277B6AA10029EB4E /* UIView+LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LocalizationKey.swift"; sourceTree = "<group>"; };
+		30E0FF15277B8C490029EB4E /* AlertButton+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertButton+URL.swift"; sourceTree = "<group>"; };
 		30E241F027739EAE00430D0E /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
 		30E241F22773A08100430D0E /* SpaceXAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXAPIClient.swift; sourceTree = "<group>"; };
 		30E241F42773A13D00430D0E /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -117,7 +119,7 @@
 		30E241FD2773B61400430D0E /* LaunchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchesViewModel.swift; sourceTree = "<group>"; };
 		30E241FF2773BA3000430D0E /* LaunchesViewModel+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LaunchesViewModel+Model.swift"; sourceTree = "<group>"; };
 		30E242022773BB1300430D0E /* LaunchesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchesViewModelTests.swift; sourceTree = "<group>"; };
-		30E242042773BF3C00430D0E /* CompanyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyView.swift; sourceTree = "<group>"; };
+		30E242042773BF3C00430D0E /* CompanyRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyRowView.swift; sourceTree = "<group>"; };
 		30E24207277480D800430D0E /* BaseUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITestCase.swift; sourceTree = "<group>"; };
 		30E2420B2774880800430D0E /* RuntimeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeService.swift; sourceTree = "<group>"; };
 		30E2420D27748A4300430D0E /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
@@ -229,7 +231,7 @@
 			children = (
 				30E0FF12277B6A850029EB4E /* Util */,
 				30D540F527732F750018B499 /* MainView.swift */,
-				30E242042773BF3C00430D0E /* CompanyView.swift */,
+				30E242042773BF3C00430D0E /* CompanyRowView.swift */,
 				30E242192774B76600430D0E /* LaunchRowView.swift */,
 			);
 			path = View;
@@ -313,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				30E0FF13277B6AA10029EB4E /* UIView+LocalizationKey.swift */,
+				30E0FF15277B8C490029EB4E /* AlertButton+URL.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -526,9 +529,10 @@
 				30D54129277331F60018B499 /* Patch.swift in Sources */,
 				30E0FF14277B6AA10029EB4E /* UIView+LocalizationKey.swift in Sources */,
 				30E2421227748F0D00430D0E /* JsonLoader.swift in Sources */,
-				30E242052773BF3C00430D0E /* CompanyView.swift in Sources */,
+				30E242052773BF3C00430D0E /* CompanyRowView.swift in Sources */,
 				30D5413C2773345B0018B499 /* Localize.swift in Sources */,
 				30E241F127739EAE00430D0E /* QueryResult.swift in Sources */,
+				30E0FF16277B8C490029EB4E /* AlertButton+URL.swift in Sources */,
 				30D540F427732F750018B499 /* SpaceXApp.swift in Sources */,
 				30D54128277331F60018B499 /* Launch.swift in Sources */,
 				30D54127277331F60018B499 /* Company.swift in Sources */,

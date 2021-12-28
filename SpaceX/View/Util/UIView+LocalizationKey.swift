@@ -18,4 +18,3 @@ extension View {
         accessibilityIdentifier(localize(key))
     }
 }
-

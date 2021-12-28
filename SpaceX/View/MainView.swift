@@ -15,7 +15,7 @@ struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
             List {
                 if let company = viewModel.company {
                     Section(localize(.main_company)) {
-                        CompanyView(company: company)
+                        CompanyRowView(company: company)
                     }
                 }
 

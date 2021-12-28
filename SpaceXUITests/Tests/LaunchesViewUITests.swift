@@ -37,9 +37,13 @@ class LaunchesViewUITests: BaseUITestCase {
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Falcon 9 / rocket"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Days since now:"), true)
         XCTAssertEqual(app.cell(row: 1)?.images["success"].exists, true)
+        XCTAssertEqual(app.cell(row: 1)?.images["Links"].exists, true)
 
         XCTAssertEqual(app.cell(row: 2)?.images["failure"].exists, true)
+        XCTAssertEqual(app.cell(row: 2)?.images["Links"].exists, true)
+
         XCTAssertEqual(app.cell(row: 3)?.images["failure"].exists, true)
+        XCTAssertEqual(app.cell(row: 3)?.images["Links"].exists, false)
     }
 
     func testShowLinks() throws {
@@ -66,12 +70,6 @@ class LaunchesViewUITests: BaseUITestCase {
         XCTAssertFalse(app.sheets.buttons["Article"].exists)
         XCTAssertTrue(app.sheets.buttons["Webcast"].exists)
         XCTAssertTrue(app.sheets.buttons["Cancel"].exists)
-
-        // When
-        app.sheets.buttons["Cancel"].tap()
-
-        // Then
-        XCTAssertFalse(app.tables.cells.element(boundBy: 3).images["Links"].exists)
     }
 }
 
