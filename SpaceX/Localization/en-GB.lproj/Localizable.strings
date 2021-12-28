@@ -19,6 +19,7 @@
 "launch_label_days_since" = "Days since now:";
 "launch_label_days_from" = "Days from now:";
 "launch_date_time_format" = "dd/MM/yy 'at' HH:mm";
+"launch_links" = "Links";
 "launch_wiki" = "Wikipedia";
 "launch_webcast" = "Webcast";
 "launch_article" = "Article";

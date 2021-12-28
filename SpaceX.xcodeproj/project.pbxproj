@@ -34,6 +34,7 @@
 		30E0FF0B277A04BF0029EB4E /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0A277A04BF0029EB4E /* ImageCache.swift */; };
 		30E0FF0E277A0A570029EB4E /* ThreadSafeCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */; };
 		30E0FF11277A11870029EB4E /* MockImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF0F277A11750029EB4E /* MockImageCache.swift */; };
+		30E0FF14277B6AA10029EB4E /* UIView+LocalizationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E0FF13277B6AA10029EB4E /* UIView+LocalizationKey.swift */; };
 		30E241F127739EAE00430D0E /* QueryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F027739EAE00430D0E /* QueryResult.swift */; };
 		30E241F32773A08100430D0E /* SpaceXAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F22773A08100430D0E /* SpaceXAPIClient.swift */; };
 		30E241F52773A13D00430D0E /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E241F42773A13D00430D0E /* HTTPClient.swift */; };
@@ -106,6 +107,7 @@
 		30E0FF0A277A04BF0029EB4E /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadSafeCache.swift; sourceTree = "<group>"; };
 		30E0FF0F277A11750029EB4E /* MockImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageCache.swift; sourceTree = "<group>"; };
+		30E0FF13277B6AA10029EB4E /* UIView+LocalizationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+LocalizationKey.swift"; sourceTree = "<group>"; };
 		30E241F027739EAE00430D0E /* QueryResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResult.swift; sourceTree = "<group>"; };
 		30E241F22773A08100430D0E /* SpaceXAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceXAPIClient.swift; sourceTree = "<group>"; };
 		30E241F42773A13D00430D0E /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -225,7 +227,7 @@
 		30D5411E27732FA90018B499 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				30E0FF09277A048F0029EB4E /* Cache */,
+				30E0FF12277B6A850029EB4E /* Util */,
 				30D540F527732F750018B499 /* MainView.swift */,
 				30E242042773BF3C00430D0E /* CompanyView.swift */,
 				30E242192774B76600430D0E /* LaunchRowView.swift */,
@@ -298,13 +300,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		30E0FF09277A048F0029EB4E /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cache;
-			sourceTree = "<group>";
-		};
 		30E0FF0C277A0A430029EB4E /* Caching */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +307,14 @@
 				30E0FF0D277A0A570029EB4E /* ThreadSafeCache.swift */,
 			);
 			path = Caching;
+			sourceTree = "<group>";
+		};
+		30E0FF12277B6A850029EB4E /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				30E0FF13277B6AA10029EB4E /* UIView+LocalizationKey.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		30E241EC27739D6E00430D0E /* API */ = {
@@ -521,6 +524,7 @@
 				30D5412A277331F60018B499 /* Links.swift in Sources */,
 				30E0FF0B277A04BF0029EB4E /* ImageCache.swift in Sources */,
 				30D54129277331F60018B499 /* Patch.swift in Sources */,
+				30E0FF14277B6AA10029EB4E /* UIView+LocalizationKey.swift in Sources */,
 				30E2421227748F0D00430D0E /* JsonLoader.swift in Sources */,
 				30E242052773BF3C00430D0E /* CompanyView.swift in Sources */,
 				30D5413C2773345B0018B499 /* Localize.swift in Sources */,

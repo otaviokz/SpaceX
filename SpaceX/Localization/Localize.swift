@@ -29,6 +29,7 @@ enum LocalizationKey: String {
     case launch_days_from = "launch_label_days_from"
     case launch_dateTimeFormat = "launch_date_time_format"
     case launch_cancel
+    case launch_links
     case launch_wiki
     case launch_webcast
     case launch_article

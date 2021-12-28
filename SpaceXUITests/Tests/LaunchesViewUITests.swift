@@ -41,6 +41,38 @@ class LaunchesViewUITests: BaseUITestCase {
         XCTAssertEqual(app.cell(row: 2)?.images["failure"].exists, true)
         XCTAssertEqual(app.cell(row: 3)?.images["failure"].exists, true)
     }
+
+    func testShowLinks() throws {
+        // Given
+        XCTAssertTrue(app.staticTexts[companyDescription].waitForExistence(timeout: 10))
+
+        // When
+        app.tables.cells.element(boundBy: 1).images["Links"].tap()
+
+        //Then
+        XCTAssertEqual(app.sheets.buttons.count, 4)
+        XCTAssertTrue(app.sheets.buttons["Wikipedia"].exists)
+        XCTAssertTrue(app.sheets.buttons["Webcast"].exists)
+        XCTAssertTrue(app.sheets.buttons["Article"].exists)
+        XCTAssertTrue(app.sheets.buttons["Cancel"].exists)
+
+        // When
+        app.sheets.buttons["Cancel"].tap()
+        app.tables.cells.element(boundBy: 2).images["Links"].tap()
+
+        //Then
+        XCTAssertEqual(app.sheets.buttons.count, 2)
+        XCTAssertFalse(app.sheets.buttons["Wikipedia"].exists)
+        XCTAssertFalse(app.sheets.buttons["Article"].exists)
+        XCTAssertTrue(app.sheets.buttons["Webcast"].exists)
+        XCTAssertTrue(app.sheets.buttons["Cancel"].exists)
+
+        // When
+        app.sheets.buttons["Cancel"].tap()
+
+        // Then
+        XCTAssertFalse(app.tables.cells.element(boundBy: 3).images["Links"].exists)
+    }
 }
 
 private extension LaunchesViewUITests {
