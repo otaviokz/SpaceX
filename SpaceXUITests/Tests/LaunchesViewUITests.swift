@@ -26,7 +26,7 @@ class LaunchesViewUITests: BaseUITestCase {
 
     func testBasics() throws {
         // Then
-        XCTAssertTrue(app.staticTexts[companyDescription].waitForExistence(timeout: 10))
+        XCTAssertExists(app.staticTexts[companyDescription])
 
         XCTAssertEqual(app.tables.firstMatch.cells.count, 4)
 
@@ -36,25 +36,31 @@ class LaunchesViewUITests: BaseUITestCase {
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Rocket:"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Falcon 9 / rocket"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Days since now:"), true)
-        XCTAssertEqual(app.cell(row: 1)?.images["success"].exists, true)
+        XCTAssertExists(app.cell(row: 1)?.images["success"])
+        XCTAssertExists(app.cell(row: 1)?.images["Links"])
 
-        XCTAssertEqual(app.cell(row: 2)?.images["failure"].exists, true)
-        XCTAssertEqual(app.cell(row: 3)?.images["failure"].exists, true)
+        XCTAssertEqual(app.cell(row: 2)?.contains(staticText: "DemoSat"), true)
+        XCTAssertExists(app.cell(row: 2)?.images["failure"])
+        XCTAssertExists(app.cell(row: 2)?.images["Links"])
+
+        XCTAssertEqual(app.cell(row: 3)?.contains(staticText: "FalconSat"), true)
+        XCTAssertExists(app.cell(row: 3)?.images["failure"])
+        XCTAssertNotFound(app.cell(row: 3)?.images["Links"])
+
+        XCTAssertExists(app.navigationBars.firstMatch.buttons["sort"])
+        XCTAssertExists(app.navigationBars.firstMatch.buttons["filter"])
     }
 
     func testShowLinks() throws {
-        // Given
-        XCTAssertTrue(app.staticTexts[companyDescription].waitForExistence(timeout: 10))
-
         // When
         app.tables.cells.element(boundBy: 1).images["Links"].tap()
 
         //Then
         XCTAssertEqual(app.sheets.buttons.count, 4)
-        XCTAssertTrue(app.sheets.buttons["Wikipedia"].exists)
-        XCTAssertTrue(app.sheets.buttons["Webcast"].exists)
-        XCTAssertTrue(app.sheets.buttons["Article"].exists)
-        XCTAssertTrue(app.sheets.buttons["Cancel"].exists)
+        XCTAssertExists(app.sheets.buttons["Wikipedia"])
+        XCTAssertExists(app.sheets.buttons["Webcast"])
+        XCTAssertExists(app.sheets.buttons["Article"])
+        XCTAssertExists(app.sheets.buttons["Cancel"])
 
         // When
         app.sheets.buttons["Cancel"].tap()
@@ -62,16 +68,68 @@ class LaunchesViewUITests: BaseUITestCase {
 
         //Then
         XCTAssertEqual(app.sheets.buttons.count, 2)
-        XCTAssertFalse(app.sheets.buttons["Wikipedia"].exists)
-        XCTAssertFalse(app.sheets.buttons["Article"].exists)
-        XCTAssertTrue(app.sheets.buttons["Webcast"].exists)
-        XCTAssertTrue(app.sheets.buttons["Cancel"].exists)
+        XCTAssertNotFound(app.sheets.buttons["Wikipedia"])
+        XCTAssertNotFound(app.sheets.buttons["Article"])
+        XCTAssertExists(app.sheets.buttons["Webcast"])
+        XCTAssertExists(app.sheets.buttons["Cancel"])
+    }
 
+    func testSort() {
         // When
-        app.sheets.buttons["Cancel"].tap()
+        app.navigationBars.firstMatch.buttons["sort"].tap()
 
         // Then
-        XCTAssertFalse(app.tables.cells.element(boundBy: 3).images["Links"].exists)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "FalconSat"), true)
+        XCTAssertEqual(app.cell(row: 2)?.contains(staticText: "DemoSat"), true)
+        XCTAssertEqual(app.cell(row: 3)?.contains(staticText: "Falcon 9 Test Flight"), true)
+    }
+
+    func testFilter() {
+        // When
+        app.navigationBars.firstMatch.buttons["filter"].tap()
+
+        // Then
+        XCTAssertExists(app.staticTexts["Filter by:"])
+
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 4)
+
+        XCTAssertExists(app.tables.cells["Successfull landings only"])
+        XCTAssertExists(app.tables.cells["2,006"])
+        XCTAssertExists(app.tables.cells["2,007"])
+        XCTAssertExists(app.tables.cells["2,010"])
+        XCTAssertNotFound(app.cell(row: 0)?.images["success"])
+        XCTAssertNotFound(app.cell(row: 1)?.images["success"])
+        XCTAssertNotFound(app.cell(row: 2)?.images["success"])
+        XCTAssertNotFound(app.cell(row: 3)?.images["success"])
+
+        // When
+        app.tables.cells["Successfull landings only"].tap()
+        app.tables.cells["2,006"].tap()
+
+        // Then
+        XCTAssertExists(app.cell(row: 0)?.images["success"])
+        XCTAssertExists(app.cell(row: 1)?.images["success"])
+
+        // When
+        app.buttons["Done"].tap()
+
+        // Then
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 1)
+
+        // When
+        app.navigationBars.firstMatch.buttons["filter"].tap()
+        app.tables.cells["Successfull landings only"].tap()
+        app.buttons["Done"].tap()
+
+        // Then
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 2)
+
+        // When
+        app.navigationBars.firstMatch.buttons["filter"].tap()
+        app.buttons["Clear"].tap()
+
+        // Then
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 4)
     }
 }
 

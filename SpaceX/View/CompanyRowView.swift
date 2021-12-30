@@ -1,5 +1,5 @@
 //
-//  CompanyView.swift
+//  CompanyRowView.swift
 //  SpaceX
 //
 //  Created by Otávio Zabaleta on 22/12/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CompanyView: View {
+struct CompanyRowView: View {
     let company: Company
     
     var body: some View {
@@ -19,7 +19,7 @@ struct CompanyView: View {
     }
 }
 
-private extension CompanyView {
+private extension CompanyRowView {
     struct Metric {
         static var spacing: CGFloat { 16 }
     }

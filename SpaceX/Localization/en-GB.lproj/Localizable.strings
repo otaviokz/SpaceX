@@ -6,12 +6,9 @@
   
 */
 
+"main_spacex" = "SpaceX";
 "main_company_section_title" = "COMPANY";
 "main_launches_section_title" = "LAUNCHES";
-"filter_title" = "Filter by:";
-"filter_years" = "Years";
-"filter_status" = "Status";
-"filter_success" = "Successfull landings only";
 "company_description" = "[$0] was founded by [$1] in [$2]. It has now [$3] employees, [$4] launch sites, and is valued at USD [$5].";
 "launch_label_mission" = "Mission:";
 "launch_label_date" = "Date/Time:";
@@ -24,3 +21,11 @@
 "launch_webcast" = "Webcast";
 "launch_article" = "Article";
 "launch_cancel" = "Cancel";
+"filter_done" = "Done";
+"filter_title" = "Filter by:";
+"filter_years" = "Years";
+"filter_status" = "Status";
+"filter_success" = "Successfull landings only";
+"filter_clear" = "Clear";
+"list_error_title" = "Error";
+"list_error_body" = "Unable to load data. Please check your network connection or try again later";

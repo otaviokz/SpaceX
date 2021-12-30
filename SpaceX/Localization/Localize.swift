@@ -20,6 +20,7 @@ func localize(_ key: FormatedLocalizationKey, _ args: [String], bundle: Bundle =
 }
 
 enum LocalizationKey: String {
+    case main_spacex
     case main_company = "main_company_section_title"
     case main_launches = "main_launches_section_title"
     case launch_mission = "launch_label_mission"
@@ -37,6 +38,8 @@ enum LocalizationKey: String {
     case filter_years
     case filter_status
     case filter_success
+    case filter_done
+    case filter_clear
     case list_error_title
     case list_error_body
 }

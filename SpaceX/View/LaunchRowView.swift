@@ -56,7 +56,7 @@ struct LaunchRowView: View {
             .padding(.trailing, -Metric.smallSpacing)
         }
         .actionSheet(item: $infoLinks) { links in
-            ActionSheet(title: Text(.launch_links), message: nil, buttons: links.actions)
+            ActionSheet(title: Text(.launch_links), buttons: links.actions)
         }
     }
 }
@@ -67,15 +67,12 @@ private extension LaunchRowView {
         let pairs: [(LocalizationKey, URL)]
 
         var actions: [ActionSheet.Button] {
-            pairs.map { key, url in
-                .default(Text(key)) { UIApplication.shared.open(url) } } + [.cancel(Text(.launch_cancel))]
+            pairs.map({ key, url in .url(Text(key), url: url) }) + [.cancel(Text(.launch_cancel))]
         }
     }
 
     func iconView(_ image: Image? = nil, url: URL? = nil) -> some View {
-        if let image = image, let url = url {
-            imageCache[url] = image
-        }
+        if let image = image, let url = url { imageCache[url] = image }
         
         return (image ?? Image(""))
             .resizable()
