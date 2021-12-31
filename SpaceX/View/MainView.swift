@@ -59,6 +59,8 @@ struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     }
 }
 
+// MARK: - UI
+
 private extension MainView {
     func barButtonIcon(_ image: Image) -> some View {
         image
@@ -79,4 +81,3 @@ private extension MainView {
         static var sort: Image { Image("sort") }
     }
 }
-

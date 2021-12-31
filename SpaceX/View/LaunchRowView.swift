@@ -61,6 +61,8 @@ struct LaunchRowView: View {
     }
 }
 
+// MARK: - UI
+
 private extension LaunchRowView {
     struct InfoLinks: Identifiable {
         let id = UUID()
