@@ -91,24 +91,29 @@ class LaunchesViewUITests: BaseUITestCase {
         // Then
         XCTAssertExists(app.staticTexts["Filter by:"])
 
-        XCTAssertEqual(app.tables.firstMatch.cells.count, 4)
-
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 1)
         XCTAssertExists(app.tables.cells["Successfull landings only"])
+
+        // When
+        app.switches.element(boundBy: 1).tap()
+
+        // Then
+        XCTAssertEqual(app.tables.firstMatch.cells.count, 4)
         XCTAssertExists(app.tables.cells["2,006"])
         XCTAssertExists(app.tables.cells["2,007"])
         XCTAssertExists(app.tables.cells["2,010"])
-        XCTAssertNotFound(app.cell(row: 0)?.images["success"])
-        XCTAssertNotFound(app.cell(row: 1)?.images["success"])
-        XCTAssertNotFound(app.cell(row: 2)?.images["success"])
-        XCTAssertNotFound(app.cell(row: 3)?.images["success"])
+        XCTAssertExists(app.cell(row: 0)?.images["Square"])
+        XCTAssertExists(app.cell(row: 1)?.images["Square"])
+        XCTAssertExists(app.cell(row: 2)?.images["Square"])
+        XCTAssertExists(app.cell(row: 3)?.images["Square"])
 
         // When
         app.tables.cells["Successfull landings only"].tap()
         app.tables.cells["2,006"].tap()
 
         // Then
-        XCTAssertExists(app.cell(row: 0)?.images["success"])
-        XCTAssertExists(app.cell(row: 1)?.images["success"])
+        XCTAssertExists(app.cell(row: 0)?.images["Selected"])
+        XCTAssertExists(app.cell(row: 1)?.images["Selected"])
 
         // When
         app.buttons["Done"].tap()

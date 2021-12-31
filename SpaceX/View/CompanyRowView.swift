@@ -19,6 +19,8 @@ struct CompanyRowView: View {
     }
 }
 
+// MARK: - UI
+
 private extension CompanyRowView {
     struct Metric {
         static var spacing: CGFloat { 16 }
