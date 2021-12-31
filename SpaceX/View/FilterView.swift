@@ -10,7 +10,9 @@ import SwiftUI
 struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     @ObservedObject private(set) var viewModel: ViewModel
     @Environment(\.presentationMode) var presentationMode
+    @State var showSuccessOnly = false
     @State var showYears = false
+    @State var checkedYears = Set<Int>()
 
     var body: some View {
         VStack() {
@@ -20,12 +22,12 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
 
             List {
                 Section(localize(.filter_status)) {
-                    Button(action: { viewModel.toggleSuccessOnlyChecked() }) {
+                    Button(action: { showSuccessOnly.toggle() }) {
                         HStack {
                             Text(.filter_success)
                             Spacer()
                             Asset
-                                .checkbox(viewModel.successOnlyEnabled)
+                                .checkbox(showSuccessOnly)
                                 .frame(height: Metric.check)
                         }
                     }
@@ -35,12 +37,12 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
                     content: {
                         if showYears {
                             ForEach(viewModel.allYears, id: \.self) { year in
-                                Button(action: { viewModel.toggleChecked(year) }) {
+                                Button(action: { toggleChecked(year) }) {
                                     HStack {
                                         Text("\(year)")
                                         Spacer()
                                         Asset
-                                            .checkbox(viewModel.checkedYears.contains(year))
+                                            .checkbox(checkedYears.contains(year))
                                             .frame(height: Metric.check)
                                     }
                                 }
@@ -48,7 +50,7 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
                         }
                     },
                     header: {
-                        Toggle.init(isOn: $showYears) { Text(.filter_years) }
+                        Toggle(isOn: $showYears) { Text(.filter_years) }
                     }
                 )
 
@@ -68,7 +70,9 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
             }
         }
         .onAppear {
-            showYears = !viewModel.checkedYears.isEmpty
+            showSuccessOnly = viewModel.filterOptions.showSuccessOnly
+            checkedYears = viewModel.filterOptions.checkedYears
+            showYears = !checkedYears.isEmpty
         }
         .animation(Style.animation, value: showYears)
     }
@@ -77,8 +81,23 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
 // MARK: - Private methods
 
 private extension FilterView {
+    typealias FilterOptions = LaunchesViewModel.FilterOptions
+    func toggleChecked(_ year: Int) {
+        if checkedYears.contains(year) {
+            checkedYears.remove(year)
+        } else {
+            checkedYears = checkedYears.union([year])
+        }
+    }
+
     func dismiss(andClear: Bool = false) {
-        if andClear { viewModel.clearFilter() }
+        var filterOptions: FilterOptions
+        if andClear {
+            filterOptions = FilterOptions()
+        } else {
+            filterOptions = FilterOptions(showSuccessOnly, checkedYears: showYears ? checkedYears : [])
+        }
+        viewModel.updateFilter(filterOptions)
         presentationMode.wrappedValue.dismiss()
     }
 }

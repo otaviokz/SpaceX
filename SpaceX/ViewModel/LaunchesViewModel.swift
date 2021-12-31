@@ -12,16 +12,12 @@ protocol LaunchesViewModeling {
     var company: Company? { get }
     var launches: [Launch]? { get }
     var errorWarning: LaunchesViewModel.ErrorWaring? { get }
-    var successOnlyEnabled: Bool { get }
-    var checkedYears: Set<Int> { get set }
     var allYears: [Int] { get }
+    var filterOptions: LaunchesViewModel.FilterOptions { get }
 
     func onAppear()
     func sort(newestFirst: Bool)
-    func showSuccessOnly(_ successOnly: Bool)
-    func toggleChecked(_ year: Int)
-    func toggleSuccessOnlyChecked()
-    func clearFilter()
+    func updateFilter(_ filterOptions: LaunchesViewModel.FilterOptions)
 }
 
 final class LaunchesViewModel: ObservableObject {
@@ -32,7 +28,7 @@ final class LaunchesViewModel: ObservableObject {
     private var allLaunches: [Launch]?
     private(set) var successOnlyEnabled = false
     private(set) var allYears = [Int]()
-
+    private(set) var filterOptions = FilterOptions()
     // MARK: - Published Properties
 
     @Published private(set) var company: Company?
@@ -52,22 +48,8 @@ extension LaunchesViewModel: LaunchesViewModeling {
         }
     }
 
-    func toggleSuccessOnlyChecked() {
-        successOnlyEnabled.toggle()
-        filterLaunches()
-    }
-
-    func showSuccessOnly(_ successOnly: Bool) {
-        self.successOnlyEnabled = successOnly
-        filterLaunches()
-    }
-
-    func toggleChecked(_ year: Int) {
-        if checkedYears.contains(year) {
-            checkedYears.remove(year)
-        } else {
-            checkedYears = checkedYears.union([year])
-        }
+    func updateFilter(_ filterOptions: FilterOptions) {
+        self.filterOptions = filterOptions
         filterLaunches()
     }
 
@@ -77,21 +59,15 @@ extension LaunchesViewModel: LaunchesViewModeling {
             return
         }
 
-        if successOnlyEnabled {
+        if filterOptions.showSuccessOnly {
             result = result.filter { $0.success == true }
         }
 
-        if checkedYears.count > 0 {
-            result = result.filter { checkedYears.contains($0.launchYear) }
+        if filterOptions.checkedYears.count > 0 {
+            result = result.filter { filterOptions.checkedYears.contains($0.launchYear) }
         }
 
         launches = result
-    }
-
-    func clearFilter() {
-        checkedYears = []
-        successOnlyEnabled = false
-        filterLaunches()
     }
 
     func onAppear() {
@@ -100,7 +76,7 @@ extension LaunchesViewModel: LaunchesViewModeling {
             .sink(receiveCompletion: handleCompletion, receiveValue: receiveCompany)
             .store(in: &self.cancellables)
 
-        api.launches(page: 0, limit: 200)
+        api.launches()
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: handleCompletion, receiveValue: receiveLaunches)
             .store(in: &self.cancellables)

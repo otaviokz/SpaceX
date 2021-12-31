@@ -12,4 +12,14 @@ extension LaunchesViewModel {
         let title: String
         let body: String
     }
+
+    struct FilterOptions {
+        let showSuccessOnly: Bool
+        let checkedYears: Set<Int>
+
+        init(_ showSuccessOnly: Bool = false, checkedYears: Set<Int> = []) {
+            self.showSuccessOnly = showSuccessOnly
+            self.checkedYears = checkedYears
+        }
+    }
 }

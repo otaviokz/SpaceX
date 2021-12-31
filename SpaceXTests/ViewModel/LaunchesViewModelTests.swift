@@ -58,6 +58,10 @@ private final class MockSpaceXAPIClient: SpaceXAPIClientType {
         Future { [weak self] in self?.companyPromise = $0 }
     }
 
+    func launches() -> Future<QueryResult<[Launch]>, HTTPError> {
+        launches(page: 0, limit: 200)
+    }
+
     var launchesPromise: ((Result<QueryResult<[Launch]>, HTTPError>) -> Void)?
     func launches(page: Int, limit: Int) -> Future<QueryResult<[Launch]>, HTTPError> {
         Future { [weak self] in self?.launchesPromise = $0 }

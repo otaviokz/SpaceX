@@ -34,6 +34,9 @@ struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
                 }
                 .listStyle(.grouped)
                 .frame(maxWidth: .infinity)
+                .refreshable {
+                    viewModel.onAppear()
+                }
             }
             .onAppear {
                 viewModel.onAppear()

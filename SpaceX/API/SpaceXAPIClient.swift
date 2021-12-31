@@ -10,6 +10,7 @@ import Foundation
 
 protocol SpaceXAPIClientType {
     func company() -> Future<Company, HTTPError>
+    func launches() -> Future<QueryResult<[Launch]>, HTTPError>
     func launches(page: Int, limit: Int) -> Future<QueryResult<[Launch]>, HTTPError>
 }
 
@@ -45,6 +46,10 @@ extension SpaceXAPIClient: SpaceXAPIClientType {
                 )
                 .store(in: &self.cancellables)
         }
+    }
+
+    func launches() -> Future<QueryResult<[Launch]>, HTTPError> {
+        launches(page: 0, limit: 200)
     }
 
     func launches(page: Int = 0, limit: Int = 200) -> Future<QueryResult<[Launch]>, HTTPError>  {
