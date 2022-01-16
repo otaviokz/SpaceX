@@ -5,13 +5,12 @@
 //  Created by Otávio Zabaleta on 22/12/2021.
 //
 
-import Combine
 import Foundation
 
 protocol SpaceXAPIClientType {
-    func company() -> Future<Company, HTTPError>
-    func launches() -> Future<QueryResult<[Launch]>, HTTPError>
-    func launches(page: Int, limit: Int) -> Future<QueryResult<[Launch]>, HTTPError>
+    func company() async throws -> Company
+    func launches() async throws -> QueryResult<[Launch]>
+    func launches(page: Int, limit: Int) async throws -> QueryResult<[Launch]>
 }
 
 final class SpaceXAPIClient {
@@ -19,7 +18,6 @@ final class SpaceXAPIClient {
     private let baseURL: URL
     private var launchesURL: URL { baseURL.appendingPathComponent("launches/query") }
     private var companyURL: URL { baseURL.appendingPathComponent("company") }
-    private var cancellables = Set<AnyCancellable>()
 
     init(baseURL: String = "https://api.spacexdata.com/v4", httpClient: HTTPClientType = HTTPClient.shared) {
         guard let url = URL(string: baseURL) else {
@@ -32,43 +30,16 @@ final class SpaceXAPIClient {
 }
 
 extension SpaceXAPIClient: SpaceXAPIClientType {
-    func company() -> Future<Company, HTTPError> {
-        Future { [weak self] promise in
-            guard let self = self else { return }
-
-            self.httpClient
-                .get(self.companyURL)
-                .sink(
-                    receiveCompletion: {
-                        if case let .failure(error) = $0 { promise(.failure(error)) }
-                    },
-                    receiveValue: { promise(.success($0)) }
-                )
-                .store(in: &self.cancellables)
-        }
+    func company() async throws -> Company {
+        try await httpClient.get(companyURL)
     }
 
-    func launches() -> Future<QueryResult<[Launch]>, HTTPError> {
-        launches(page: 0, limit: 200)
+    func launches() async throws -> QueryResult<[Launch]> {
+        try await launches(page: 0, limit: 200)
     }
 
-    func launches(page: Int = 0, limit: Int = 200) -> Future<QueryResult<[Launch]>, HTTPError>  {
-        Future { [weak self] promise in
-            guard let self = self else { return }
-            do {
-                self.httpClient
-                    .postJSON(self.launchesURL, body: try self.launchQuery().json())
-                    .sink(
-                        receiveCompletion: {
-                            if case let .failure(error) = $0 { promise(.failure(error)) }
-                        },
-                        receiveValue: { promise(.success($0)) }
-                    )
-                    .store(in: &self.cancellables)
-            } catch {
-                promise(.failure(.map(error)))
-            }
-        }
+    func launches(page: Int = 0, limit: Int = 200) async throws -> QueryResult<[Launch]> {
+        try await httpClient.postJSON(self.launchesURL, body: try self.launchQuery().json())
     }
 }
 

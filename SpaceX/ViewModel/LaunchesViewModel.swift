@@ -5,7 +5,6 @@
 //  Created by Otávio Zabaleta on 22/12/2021.
 //
 
-import Combine
 import Foundation
 
 protocol LaunchesViewModeling {
@@ -24,7 +23,6 @@ final class LaunchesViewModel: ObservableObject {
     // MARK: - Properties
 
     private let api: SpaceXAPIClientType
-    private var cancellables = Set<AnyCancellable>()
     private var allLaunches: [Launch]?
     private(set) var successOnlyEnabled = false
     private(set) var allYears = [Int]()
@@ -71,32 +69,33 @@ extension LaunchesViewModel: LaunchesViewModeling {
     }
 
     func onAppear() {
-        api.company()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: handleCompletion, receiveValue: receiveCompany)
-            .store(in: &self.cancellables)
+        Task {
+            do {
+                let company = try await api.company()
+                DispatchQueue.main.async { [weak self] in self?.company = company }
+            } catch {
+                handle(error: .map(error))
+            }
+        }
 
-        api.launches()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: handleCompletion, receiveValue: receiveLaunches)
-            .store(in: &self.cancellables)
+        Task {
+            do {
+                let query = try await api.launches()
+                allLaunches = query.results
+                allYears = Set((allLaunches ?? []).map { $0.launchYear }).sorted()
+                DispatchQueue.main.async { [weak self] in self?.launches = self?.allLaunches }
+            } catch {
+                handle(error: .map(error))
+            }
+        }
     }
 }
 
 private extension LaunchesViewModel {
-    func receiveCompany(company: Company) {
-        self.company = company
-    }
-
-    func receiveLaunches(query: QueryResult<[Launch]>) {
-        allLaunches = query.results
-        allYears = Set((allLaunches ?? []).map { $0.launchYear }).sorted()
-        launches = allLaunches
-    }
-
-    func handleCompletion(completion: Subscribers.Completion<HTTPError>) {
-        if case .failure(_) = completion, errorWarning == nil {
-            errorWarning = ErrorWaring(title: localize(.list_error_title), body: localize(.list_error_body))
+    func handle(error: HTTPError) {
+        DispatchQueue.main.async { [unowned self] in
+            guard errorWarning == nil else { return }
+            errorWarning = ErrorWaring(.list_error_title, bodyKey: .list_error_body)
         }
     }
 }

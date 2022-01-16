@@ -5,7 +5,6 @@
 //  Created by Otávio Zabaleta on 22/12/2021.
 //
 
-import Combine
 @testable import SpaceX
 import XCTest
 
@@ -13,11 +12,11 @@ final class LaunchesViewModelTests: XCTestCase {
     func testOnAppear() {
         // Given
         let (sut, api) = makeSUT()
+        api.stubCompanyResponse = try! JsonLoader.company()
+        api.stubLaunchesResponse = launchesQuery
 
         // When
         sut.onAppear()
-        api.companyPromise?(.success(try! JsonLoader.company()))
-        api.launchesPromise?(.success(launchesQuery))
 
         // Then
         waitForExpectationWithPredicate { sut.company != nil && sut.launches != nil }
@@ -26,11 +25,10 @@ final class LaunchesViewModelTests: XCTestCase {
 
     func testOnAppearError() {
         // Given
-        let (sut, api) = makeSUT()
+        let (sut, _) = makeSUT()
 
         // When
         sut.onAppear()
-        api.companyPromise?(.failure(.unknown))
 
         // Then
         waitForExpectationWithPredicate { sut.errorWarning != nil }
@@ -53,17 +51,21 @@ private extension LaunchesViewModelTests {
 }
 
 private final class MockSpaceXAPIClient: SpaceXAPIClientType {
-    var companyPromise: ((Result<Company, HTTPError>) -> Void)?
-    func company() -> Future<Company, HTTPError> {
-        Future { [weak self] in self?.companyPromise = $0 }
+    var stubCompanyResponse: Company?
+    var stubCompanyError: HTTPError?
+    func company() async throws -> Company {
+        guard let company = stubCompanyResponse else { throw stubCompanyError ?? .unknown }
+        return company
     }
 
-    func launches() -> Future<QueryResult<[Launch]>, HTTPError> {
-        launches(page: 0, limit: 200)
+    var stubLaunchesResponse: QueryResult<[Launch]>?
+    var stubLaunchesError: HTTPError?
+    func launches() async throws -> QueryResult<[Launch]> {
+        try await launches(page: 0, limit: 200)
     }
 
-    var launchesPromise: ((Result<QueryResult<[Launch]>, HTTPError>) -> Void)?
-    func launches(page: Int, limit: Int) -> Future<QueryResult<[Launch]>, HTTPError> {
-        Future { [weak self] in self?.launchesPromise = $0 }
+    func launches(page: Int, limit: Int) async throws -> QueryResult<[Launch]> {
+        guard let query = stubLaunchesResponse else { throw stubLaunchesError ?? .unknown }
+        return query
     }
 }

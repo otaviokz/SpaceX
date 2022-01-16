@@ -5,34 +5,23 @@
 //  Created by Otávio Zabaleta on 22/12/2021.
 //
 
-import Combine
 @testable import SpaceX
 import XCTest
 
 
 final class SpaceXAPIClientTests: XCTestCase {
-    private var cancellables = Set<AnyCancellable>()
-
-    override func setUp() {
-        cancellables = []
-    }
-
     func testGetCompany() {
         // Given
         let (sut, httpClient) = makeSUT()
         httpClient.company = try! JsonLoader.company()
-        let valueReceived = expectation(description: "Company data received")
 
-        // When
-        sut.company()
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { _ in valueReceived.fulfill() }
-            )
-            .store(in: &cancellables)
+        runAsyncTest {
+            // When
+            let company = try await sut.company()
 
-        // Then
-        waitForExpectations()
+            // Then
+            XCTAssertNotNil(company)
+        }
     }
 
     func testGetCompanyFailure() {
@@ -42,14 +31,14 @@ final class SpaceXAPIClientTests: XCTestCase {
         let failure = expectation(description: "Company error received")
 
         // When
-        sut.company()
-            .sink(
-                receiveCompletion: {
-                    if case .failure(.unknown) = $0 { failure.fulfill() }
-                },
-                receiveValue: { _ in }
-            )
-            .store(in: &cancellables)
+        Task {
+            do {
+                let _ = try await sut.company()
+            } catch {
+                XCTAssertNotNil(error)
+                failure.fulfill()
+            }
+        }
 
         // Then
         waitForExpectations()
@@ -59,18 +48,14 @@ final class SpaceXAPIClientTests: XCTestCase {
         // Given
         let (sut, httpClient) = makeSUT()
         httpClient.launches = try! JsonLoader.launches()
-        let valueReceived = expectation(description: "Launches data received")
 
-        // When
-        sut.launches()
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { _ in valueReceived.fulfill() }
-            )
-            .store(in: &cancellables)
+        runAsyncTest {
+            // When
+            let launches = try? await sut.launches()
 
-        // Then
-        waitForExpectations()
+            // Then
+            XCTAssertNotNil(launches)
+        }
     }
 
     func testGetLaunchesFailure() {
@@ -80,14 +65,15 @@ final class SpaceXAPIClientTests: XCTestCase {
         let failure = expectation(description: "Launches error received")
 
         // When
-        sut.launches()
-            .sink(
-                receiveCompletion: {
-                    if case .failure(.unknown) = $0 { failure.fulfill() }
-                },
-                receiveValue: { _ in }
-            )
-            .store(in: &cancellables)
+        Task {
+            do {
+                let _ = try await sut.launches()
+                XCTFail()
+            } catch {
+                XCTAssertNotNil(error)
+                failure.fulfill()
+            }
+        }
 
         // Then
         waitForExpectations()

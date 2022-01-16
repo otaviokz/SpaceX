@@ -5,7 +5,6 @@
 //  Created by Otávio Zabaleta on 27/12/2021.
 //
 
-import Combine
 import Foundation
 import SwiftUI
 
@@ -17,7 +16,6 @@ final class ImageCache {
     static let shared = ImageCache()
 
     private var cache = ThreadSafeCache<URL, Image>()
-    private var cancellables = Set<AnyCancellable>()
 }
 
 extension ImageCache: ImageCaching {
