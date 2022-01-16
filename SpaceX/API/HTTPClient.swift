@@ -5,7 +5,6 @@
 //  Created by Otávio Zabaleta on 22/12/2021.
 //
 
-import Combine
 import UIKit
 
 enum HTTPError: Error {
@@ -24,36 +23,28 @@ enum HTTPError: Error {
 }
 
 protocol HTTPClientType {
-    func get<T: Decodable>(_ url: URL) -> AnyPublisher<T, HTTPError>
-    func postJSON<T: Decodable>(_ url: URL, body: Data) -> AnyPublisher<T, HTTPError>
+    func get<T: Decodable>(_ url: URL) async throws -> T
+    func postJSON<T: Decodable>(_ url: URL, body: Data) async throws -> T
 }
 
 struct HTTPClient: HTTPClientType {
     static let shared = HTTPClient()
+
     private init() {}
 
-    func get<T: Decodable>(_ url: URL) -> AnyPublisher<T, HTTPError> {
-        connect(.get(url))
+    func get<T: Decodable>(_ url: URL) async throws -> T {
+        try await connect(.get(url))
     }
 
-    func postJSON<T: Decodable>(_ url: URL, body: Data) -> AnyPublisher<T, HTTPError> {
-        connect(.postJSON(body, to: url))
+    func postJSON<T: Decodable>(_ url: URL, body: Data) async throws -> T {
+        try await connect(.postJSON(body, to: url))
     }
 }
 
 private extension HTTPClient {
-    func connect<T: Decodable>(_ request: URLRequest) -> AnyPublisher<T, HTTPError> {
-        URLSession
-            .shared
-            .dataTaskPublisher(for: request)
-            .tryMap {
-                let statusCode = ($0.response as? HTTPURLResponse)?.statusCode
-                guard statusCode == 200 else { throw HTTPError.map(statusCode) }
-                return $0.data
-            }
-            .decode(type: T.self, decoder: JSONDecoder())
-            .mapError { .map($0) }
-            .eraseToAnyPublisher()
+    func connect<T: Decodable>(_ request: URLRequest) async throws -> T {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw HTTPError.unknown }
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
-

@@ -5,12 +5,10 @@
 //  Created by Otávio Zabaleta on 23/12/2021.
 //
 
-import Combine
 import Foundation
 
 final class MockHTTPClient: HTTPClientType {
     static let shared = MockHTTPClient()
-    var stubGetError: HTTPError?
 
     @inlinable func populate() -> MockHTTPClient {
         company = try? JsonLoader.company()
@@ -18,21 +16,17 @@ final class MockHTTPClient: HTTPClientType {
         return self
     }
 
-    func get<T: Decodable>(_ url: URL) -> AnyPublisher<T, HTTPError> {
-        guard let data = company as? T else {
-            return Fail(error: stubGetError ?? .unknown).eraseToAnyPublisher()
-        }
-
-        return Just(data).setFailureType(to: HTTPError.self).eraseToAnyPublisher()
+    var stubGetError: HTTPError?
+    func get<T>(_ url: URL) async throws -> T where T : Decodable {
+        guard let data = company as? T else { throw stubPostError ?? .unknown }
+        return data
     }
 
-    var stubPostError: HTTPError?
-    func postJSON<T: Decodable>(_ url: URL, body: Data) -> AnyPublisher<T, HTTPError> {
-        guard  let data = launchesQuery as? T else {
-            return Fail(error: stubPostError ?? .unknown).eraseToAnyPublisher()
-        }
 
-        return Just(data).setFailureType(to: HTTPError.self).eraseToAnyPublisher()
+    var stubPostError: HTTPError?
+    func postJSON<T>(_ url: URL, body: Data) async throws -> T where T : Decodable {
+        guard let data = launchesQuery as? T else { throw stubPostError ?? .unknown }
+        return data
     }
 
     var company: Company?

@@ -11,6 +11,11 @@ extension LaunchesViewModel {
     struct ErrorWaring {
         let title: String
         let body: String
+
+        init(_ titleKey: LocalizationKey, bodyKey: LocalizationKey) {
+            self.title = localize(titleKey)
+            self.body = localize(bodyKey)
+        }
     }
 
     struct FilterOptions {
