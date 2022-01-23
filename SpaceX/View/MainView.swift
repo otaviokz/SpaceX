@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     @ObservedObject private(set) var viewModel: ViewModel
-    @State private var sort = false {
+    @State private var sort = true {
         didSet { viewModel.sort(newestFirst: sort) }
     }
     @State private var showFilter = false

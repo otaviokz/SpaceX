@@ -60,3 +60,13 @@ private extension Launch {
         }
     }
 }
+
+extension Array where Element == Launch {
+    var newestFirst: [Launch] {
+        sorted { $0.localDate > $1.localDate }
+    }
+
+    var oldestFirst: [Launch] {
+        sorted { $0.localDate < $1.localDate }
+    }
+}
