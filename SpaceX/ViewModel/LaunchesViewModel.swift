@@ -27,6 +27,8 @@ final class LaunchesViewModel: ObservableObject {
     private(set) var successOnlyEnabled = false
     private(set) var allYears = [Int]()
     private(set) var filterOptions = FilterOptions()
+    private var newestFirst = true
+    
     // MARK: - Published Properties
 
     @Published private(set) var company: Company?
@@ -41,9 +43,8 @@ final class LaunchesViewModel: ObservableObject {
 
 extension LaunchesViewModel: LaunchesViewModeling {
     func sort(newestFirst: Bool) {
-        launches = launches?.sorted {
-            newestFirst ? $0.localDate < $1.localDate : $1.localDate < $0.localDate
-        }
+        self.newestFirst = newestFirst
+        launches = newestFirst ? launches?.newestFirst : launches?.oldestFirst
     }
 
     func updateFilter(_ filterOptions: FilterOptions) {
@@ -65,7 +66,7 @@ extension LaunchesViewModel: LaunchesViewModeling {
             result = result.filter { filterOptions.checkedYears.contains($0.launchYear) }
         }
 
-        launches = result
+        launches = newestFirst ? result.newestFirst : result.oldestFirst
     }
 
     func onAppear() {
