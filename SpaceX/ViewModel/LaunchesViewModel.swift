@@ -7,15 +7,15 @@
 
 import Foundation
 
-protocol LaunchesViewModeling {
+protocol LaunchesViewModeling: AnyObject {
     var company: Company? { get }
     var launches: [Launch]? { get }
     var errorWarning: LaunchesViewModel.ErrorWaring? { get }
     var allYears: [Int] { get }
     var filterOptions: LaunchesViewModel.FilterOptions { get }
-
+    var newestFirst: Bool { get set }
+    
     func onAppear()
-    func sort(newestFirst: Bool)
     func updateFilter(_ filterOptions: LaunchesViewModel.FilterOptions)
 }
 
@@ -27,7 +27,7 @@ final class LaunchesViewModel: ObservableObject {
     private(set) var successOnlyEnabled = false
     private(set) var allYears = [Int]()
     private(set) var filterOptions = FilterOptions()
-    private var newestFirst = true
+    var newestFirst = true { didSet { launches = launches?.sorted(newestFirst) } }
     
     // MARK: - Published Properties
 
@@ -42,31 +42,9 @@ final class LaunchesViewModel: ObservableObject {
 }
 
 extension LaunchesViewModel: LaunchesViewModeling {
-    func sort(newestFirst: Bool) {
-        self.newestFirst = newestFirst
-        launches = newestFirst ? launches?.newestFirst : launches?.oldestFirst
-    }
-
     func updateFilter(_ filterOptions: FilterOptions) {
         self.filterOptions = filterOptions
         filterLaunches()
-    }
-
-    func filterLaunches() {
-        guard var result = allLaunches else {
-            launches = nil
-            return
-        }
-
-        if filterOptions.showSuccessOnly {
-            result = result.filter { $0.success == true }
-        }
-
-        if filterOptions.checkedYears.count > 0 {
-            result = result.filter { filterOptions.checkedYears.contains($0.launchYear) }
-        }
-
-        launches = newestFirst ? result.newestFirst : result.oldestFirst
     }
 
     func onAppear() {
@@ -84,7 +62,7 @@ extension LaunchesViewModel: LaunchesViewModeling {
                 let query = try await api.launches()
                 allLaunches = query.results
                 allYears = Set((allLaunches ?? []).map { $0.launchYear }).sorted()
-                DispatchQueue.main.async { [weak self] in self?.launches = self?.allLaunches }
+                DispatchQueue.main.async { [unowned self] in filterLaunches() }
             } catch {
                 handle(error: .map(error))
             }
@@ -93,6 +71,23 @@ extension LaunchesViewModel: LaunchesViewModeling {
 }
 
 private extension LaunchesViewModel {
+    func filterLaunches() {
+        guard var result = allLaunches else {
+            launches = nil
+            return
+        }
+
+        if filterOptions.showSuccessOnly {
+            result = result.filter { $0.success == true }
+        }
+
+        if filterOptions.checkedYears.count > 0 {
+            result = result.filter { filterOptions.checkedYears.contains($0.launchYear) }
+        }
+
+        launches = result.sorted(newestFirst)
+    }
+
     func handle(error: HTTPError) {
         DispatchQueue.main.async { [unowned self] in
             guard errorWarning == nil else { return }

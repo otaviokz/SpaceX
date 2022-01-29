@@ -9,34 +9,29 @@ import SwiftUI
 
 struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     @ObservedObject private(set) var viewModel: ViewModel
-    @State private var sort = true {
-        didSet { viewModel.sort(newestFirst: sort) }
-    }
     @State private var showFilter = false
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                List {
-                    if let company = viewModel.company {
-                        Section(localize(.main_company)) {
-                            CompanyRowView(company: company)
-                        }
+            List {
+                if let company = viewModel.company {
+                    Section(localize(.main_company)) {
+                        CompanyRowView(company: company)
                     }
+                }
 
-                    if let launches = viewModel.launches {
-                        Section(localize(.main_launches)) {
-                            ForEach(launches, id: \.self) { launch in
-                                LaunchRowView(launch: launch)
-                            }
+                if let launches = viewModel.launches {
+                    Section(localize(.main_launches)) {
+                        ForEach(launches, id: \.self) { launch in
+                            LaunchRowView(launch: launch)
                         }
                     }
                 }
-                .listStyle(.grouped)
-                .frame(maxWidth: .infinity)
-                .refreshable {
-                    viewModel.onAppear()
-                }
+            }
+            .listStyle(.grouped)
+            .frame(maxWidth: .infinity)
+            .refreshable {
+                viewModel.onAppear()
             }
             .onAppear {
                 viewModel.onAppear()
@@ -45,16 +40,11 @@ struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
             .navigationTitle(localize(.main_spacex))
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    HStack(spacing: 0) {
-                        Button(barButtonIcon(Asset.sort))  { sort.toggle() }
-
-                        Button(barButtonIcon(Asset.filter)) {
-                            showFilter = true
-                        }
-                        .sheet(isPresented: $showFilter, onDismiss: { showFilter = false }) {
-                            FilterView(viewModel: viewModel)
-                        }
+                    HStack {
+                        Button(barButtonIcon(Asset.sort)) { viewModel.newestFirst.toggle() }
+                        Button(barButtonIcon(Asset.filter)) { showFilter = true }
                     }
+                    .sheet(isPresented: $showFilter) { FilterView(viewModel: viewModel) }
                     .frame(alignment: .trailing)
                 }
             }
