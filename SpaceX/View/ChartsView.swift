@@ -87,11 +87,3 @@ extension Array where Element == String {
         first { $0.noCaseEquals(string) } != nil
     }
 }
-//
-//let missionName: String
-//let success: Bool?
-//let dateUTC: String
-//let dateIsTBD: Bool
-//let rocket: Rocket
-//let links: Links
-//let localDate: Date

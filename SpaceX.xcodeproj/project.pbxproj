@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B95713228DFF2A000B2287F /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95713128DFF2A000B2287F /* ChartsView.swift */; };
-		2B95713528DFF38200B2287F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2B95713428DFF38200B2287F /* SwiftUICharts */; };
+		2B95713F28E02A9300B2287F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2B95713E28E02A9300B2287F /* SwiftUICharts */; };
 		3078B945277E0D8900EB7C6D /* Button+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078B944277E0D8900EB7C6D /* Button+Utils.swift */; };
 		30D540F427732F750018B499 /* SpaceXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D540F327732F750018B499 /* SpaceXApp.swift */; };
 		30D540F627732F750018B499 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D540F527732F750018B499 /* MainView.swift */; };
@@ -138,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B95713528DFF38200B2287F /* SwiftUICharts in Frameworks */,
+				2B95713F28E02A9300B2287F /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,13 +159,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B95713628DFF39600B2287F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		30D540E727732F750018B499 = {
 			isa = PBXGroup;
 			children = (
@@ -173,7 +166,6 @@
 				30D5410327732F760018B499 /* SpaceXTests */,
 				30D5410D27732F760018B499 /* SpaceXUITests */,
 				30D540F127732F750018B499 /* Products */,
-				2B95713628DFF39600B2287F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -408,7 +400,7 @@
 			);
 			name = SpaceX;
 			packageProductDependencies = (
-				2B95713428DFF38200B2287F /* SwiftUICharts */,
+				2B95713E28E02A9300B2287F /* SwiftUICharts */,
 			);
 			productName = SpaceX;
 			productReference = 30D540F027732F750018B499 /* SpaceX.app */;
@@ -484,7 +476,7 @@
 			);
 			mainGroup = 30D540E727732F750018B499;
 			packageReferences = (
-				2B95713328DFF38200B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
+				2B95713D28E02A9300B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = 30D540F127732F750018B499 /* Products */;
 			projectDirPath = "";
@@ -915,20 +907,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2B95713328DFF38200B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
+		2B95713D28E02A9300B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/otaviokz/SwiftUICharts";
 			requirement = {
-				branch = "donut-chart";
-				kind = branch;
+				kind = revision;
+				revision = b4266f7daf79241358ca1b70942aa97638fa23fa;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2B95713428DFF38200B2287F /* SwiftUICharts */ = {
+		2B95713E28E02A9300B2287F /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2B95713328DFF38200B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
+			package = 2B95713D28E02A9300B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
