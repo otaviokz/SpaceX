@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftuicharts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/otaviokz/SwiftUICharts",
+      "state" : {
+        "branch" : "donut-chart",
+        "revision" : "8deca6e1eda3090774c27fc95cdf0db6d896d037"
+      }
+    }
+  ],
+  "version" : 2
+}

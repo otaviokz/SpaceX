@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     @ObservedObject private(set) var viewModel: ViewModel
     @State private var showFilter = false
+    @State private var showCharts = false
 
     var body: some View {
         NavigationView {
@@ -43,8 +44,12 @@ struct MainView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
                     HStack {
                         Button(barButtonIcon(Asset.sort)) { viewModel.newestFirst.toggle() }
                         Button(barButtonIcon(Asset.filter)) { showFilter = true }
+                        if viewModel.launches?.count ?? 0 > 0 {
+                            Button(barButtonIcon(Asset.chart)) { showCharts = true }
+                        }
                     }
                     .sheet(isPresented: $showFilter) { FilterView(viewModel: viewModel) }
+                    .sheet(isPresented: $showCharts) { ChartsView(viewModel: viewModel) }
                     .frame(alignment: .trailing)
                 }
             }
@@ -72,5 +77,6 @@ private extension MainView {
     struct Asset {
         static var filter: Image { Image("filter") }
         static var sort: Image { Image("sort") }
+        static var chart: Image { Image("chart") }
     }
 }
