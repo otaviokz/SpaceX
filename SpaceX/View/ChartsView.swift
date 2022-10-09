@@ -14,18 +14,16 @@ struct ChartsView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
-            Button(Text(.filter_done)) { dismiss() }
-            
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        if let tuples = chartData {
-                            ForEach(tuples, id: \.title) { data, title in
-                                SCDonutChartView(data, title: title, formatter: formatter)
-                                Divider().frame(height: 2).background(Color.gray)
-                            }
-                        }
+            Button(Text(.filter_done).font(.title3.bold), action: dismiss)
+                .padding(.top, 12)
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: 0) {
+                    ForEach(chartData, id: \.title) { data, title in
+                        SCPieChartView(data, title: title)
+                        Divider().frame(height: 2).background(Color.gray)
                     }
                 }
+            }
         }
         
     }

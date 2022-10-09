@@ -2,6 +2,6 @@
   "name": "SpaceX",
   "version": "1.0",
   "dependencies": {
-    "https://github.com/otaviokz/SwiftUICharts": "~0.0.1"
+    "https://github.com/otaviokz/SwiftUICharts": "~1.0.0"
   }
 }

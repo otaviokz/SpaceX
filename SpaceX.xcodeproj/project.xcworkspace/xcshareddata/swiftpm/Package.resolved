@@ -5,7 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/otaviokz/SwiftUICharts",
       "state" : {
-        "revision" : "b4266f7daf79241358ca1b70942aa97638fa23fa"
+        "revision" : "babc0785bd19438e30c145f6b580fa30033fe156",
+        "version" : "1.0.0"
       }
     }
   ],

@@ -1,19 +1,32 @@
 name: Swift
 
-on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
-
+on: [pull_request]
 jobs:
   build:
-
-    runs-on: macos-latest
+    runs-on: macos-12
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - uses: actions/checkout@v3
+      - uses: fwal/setup-swift@2040b795e5c453c3a05fcb8316496afc8a74f192
+        with:
+          swift-version: "5.5"
+
+      - name: Build
+        run: swift build
+
+      - name: Run tests
+        run: swift test --enable-code-coverage
+
+      - name: Process coverage
+        uses: maxep/spm-lcov-action@0.3.0
+        with:
+          output-file: ./coverage/lcov.info
+
+      - name: Post coverage report
+        uses: romeovs/lcov-reporter-action@v0.3.1
+        with:
+          title: Code Coverage
+          lcov-file: ./coverage/lcov.info
+          github-token: ${{ secrets.TOKEN }}
+          filter-changed-files: true
+          delete-old-comments: true

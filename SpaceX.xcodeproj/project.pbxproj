@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B6D7A4328F24E8D007CC4F5 /* Font+Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6D7A4228F24E8D007CC4F5 /* Font+Shortcuts.swift */; };
 		2B95713228DFF2A000B2287F /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95713128DFF2A000B2287F /* ChartsView.swift */; };
 		2B95713F28E02A9300B2287F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2B95713E28E02A9300B2287F /* SwiftUICharts */; };
 		3078B945277E0D8900EB7C6D /* Button+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078B944277E0D8900EB7C6D /* Button+Utils.swift */; };
@@ -80,6 +81,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B6D7A4228F24E8D007CC4F5 /* Font+Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Shortcuts.swift"; sourceTree = "<group>"; };
 		2B95713128DFF2A000B2287F /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		3078B944277E0D8900EB7C6D /* Button+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Utils.swift"; sourceTree = "<group>"; };
 		30D540F027732F750018B499 /* SpaceX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -327,6 +329,7 @@
 			children = (
 				30E0FF13277B6AA10029EB4E /* View+LocalizationKey.swift */,
 				30E0FF15277B8C490029EB4E /* AlertButton+URL.swift */,
+				2B6D7A4228F24E8D007CC4F5 /* Font+Shortcuts.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -450,7 +453,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					30D540EF27732F750018B499 = {
 						CreatedOnToolsVersion = 13.2;
@@ -555,6 +558,7 @@
 				30E0FF16277B8C490029EB4E /* AlertButton+URL.swift in Sources */,
 				30D540F427732F750018B499 /* SpaceXApp.swift in Sources */,
 				30D54128277331F60018B499 /* Launch.swift in Sources */,
+				2B6D7A4328F24E8D007CC4F5 /* Font+Shortcuts.swift in Sources */,
 				30D54127277331F60018B499 /* Company.swift in Sources */,
 				30E0FF11277A11870029EB4E /* MockImageCache.swift in Sources */,
 				30E241F72773A21100430D0E /* URLRequest+Utils.swift in Sources */,
@@ -619,6 +623,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -681,6 +686,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -913,8 +919,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/otaviokz/SwiftUICharts";
 			requirement = {
-				kind = revision;
-				revision = b4266f7daf79241358ca1b70942aa97638fa23fa;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
