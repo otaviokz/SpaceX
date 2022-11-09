@@ -19,13 +19,12 @@ struct ChartsView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     ForEach(chartData, id: \.title) { data, title in
-                        SCPieChartView(data, title: title)
+                        SCDonutChartView(title, data: data, onChartMinPct: 0.02)
                         Divider().frame(height: 2).background(Color.gray)
                     }
                 }
             }
         }
-        
     }
     
     func dismiss() {
