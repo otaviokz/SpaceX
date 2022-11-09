@@ -32,7 +32,7 @@ class LaunchesViewUITests: BaseUITestCase {
 
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Falcon 9 Test Flight"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Date/Time:"), true)
-        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "06/04/10 at 19:45"), true)
+        XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "06/04/10 at 15:45"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Rocket:"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Falcon 9 / rocket"), true)
         XCTAssertEqual(app.cell(row: 1)?.contains(staticText: "Days since now:"), true)
