@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B29AB0B29A841DA0058E72C /* Array+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29AB0A29A841DA0058E72C /* Array+Utils.swift */; };
 		2B95713228DFF2A000B2287F /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95713128DFF2A000B2287F /* ChartsView.swift */; };
 		2B95713F28E02A9300B2287F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2B95713E28E02A9300B2287F /* SwiftUICharts */; };
 		3078B945277E0D8900EB7C6D /* Button+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078B944277E0D8900EB7C6D /* Button+Utils.swift */; };
@@ -80,6 +81,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B29AB0A29A841DA0058E72C /* Array+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
 		2B95713128DFF2A000B2287F /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		3078B944277E0D8900EB7C6D /* Button+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Utils.swift"; sourceTree = "<group>"; };
 		30D540F027732F750018B499 /* SpaceX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B29AB0929A841C10058E72C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2B29AB0A29A841DA0058E72C /* Array+Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		30D540E727732F750018B499 = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +192,7 @@
 		30D540F227732F750018B499 /* SpaceX */ = {
 			isa = PBXGroup;
 			children = (
+				2B29AB0929A841C10058E72C /* Utils */,
 				30E0FF0C277A0A430029EB4E /* Caching */,
 				30D540F327732F750018B499 /* SpaceXApp.swift */,
 				30E241EC27739D6E00430D0E /* API */,
@@ -550,6 +561,7 @@
 				30E2421227748F0D00430D0E /* JsonLoader.swift in Sources */,
 				30E242052773BF3C00430D0E /* CompanyRowView.swift in Sources */,
 				3078B945277E0D8900EB7C6D /* Button+Utils.swift in Sources */,
+				2B29AB0B29A841DA0058E72C /* Array+Utils.swift in Sources */,
 				30D5413C2773345B0018B499 /* Localize.swift in Sources */,
 				30E241F127739EAE00430D0E /* QueryResult.swift in Sources */,
 				30E0FF16277B8C490029EB4E /* AlertButton+URL.swift in Sources */,
@@ -913,8 +925,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/otaviokz/SwiftUICharts";
 			requirement = {
-				kind = revision;
-				revision = b4266f7daf79241358ca1b70942aa97638fa23fa;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
