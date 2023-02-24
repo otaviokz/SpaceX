@@ -13,7 +13,7 @@
 "launch_label_mission" = "Mission:";
 "launch_label_date" = "Date/Time:";
 "launch_label_rocket" = "Rocket:";
-"launch_label_days_since" = "Days since now:";
+"launch_label_days_since" = "Days ago:";
 "launch_label_days_from" = "Days from now:";
 "launch_date_time_format" = "MM/dd/yy 'at' HH:mm";
 "launch_links" = "Links";

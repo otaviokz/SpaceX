@@ -43,7 +43,7 @@ struct LaunchRowView: View {
 
             VStack {
                 iconView(Asset.statusImage(launch.success))
-                    .foregroundColor(.gray)
+                    .foregroundColor(launch.success == true ? .green : .red)
                 if launch.links.hasInfo {
                     Spacer()
                     iconView(Asset.info)
@@ -64,6 +64,14 @@ struct LaunchRowView: View {
 // MARK: - UI
 
 private extension LaunchRowView {
+    var numberFormatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = true
+        formatter.groupingSeparator = ","
+        formatter.groupingSize = 3
+        return formatter
+    }
+    
     struct InfoLinks: Identifiable {
         let id = UUID()
         let pairs: [(LocalizationKey, URL)]
@@ -87,8 +95,14 @@ private extension LaunchRowView {
     }
 
     var daysValue: String {
-        guard let days = days(from: launch.localDate) else { return "" }
-        return "\(days)"
+        var timeDistance: Int?
+        if launch.localDate <= Date() {
+            timeDistance = days(from: launch.localDate, to: Date())
+        } else {
+            timeDistance = days(from: Date(), to: launch.localDate)
+        }
+        
+        return "\(numberFormatter.string(for: timeDistance ?? 0) ?? "")"
     }
 
     func infoRow(label: String, value: String) -> some View {
@@ -115,9 +129,8 @@ private extension LaunchRowView {
             .multilineTextAlignment(.leading)
     }
 
-    func days(from: Date) -> Int? {
-        let now = Date()
-        return Calendar.current.dateComponents([.day], from: min(now, from), to: max(now, from)).day
+    func days(from: Date, to: Date = Date()) -> Int? {
+        return Calendar.current.dateComponents([.day], from: min(from, to), to: max(from, to)).day
     }
 
     struct Metric {
@@ -141,6 +154,70 @@ private extension LaunchRowView {
         static var local: DateFormatter {
             let formatter = DateFormatter()
             formatter.dateFormat = localize(.launch_dateTimeFormat)
+            return formatter
+        }
+    }
+}
+
+struct LaunchRowView_Previews: PreviewProvider {
+    @State var dateFormatter = DateFormatter()
+    
+    static var previews: some View {
+        List {
+            LaunchRowView(
+                launch: Launch(
+                    name: "Swift to the moon",
+                    success: true,
+                    dateUTC: "2012-12-04T18:45:00.000Z",
+                    dateTBD: false,
+                    rocket: Rocket(name: "Falcon 12", type: "Heavy"),
+                    links: Links(),
+                    localDate: Date()
+                )
+            )
+            
+            LaunchRowView(
+                launch: Launch(
+                    name: "Swift to mars",
+                    success: nil,
+                    dateUTC: "2030-01-01T18:45:00.000Z",
+                    dateTBD: false,
+                    rocket: Rocket(name: "Falcon 15", type: "Long voyge"),
+                    links: Links(),
+                    localDate: Date()
+                )
+            )
+        }
+        
+    }
+}
+
+private extension Launch {
+    init(name: String, success: Bool?, dateUTC: String, dateTBD: Bool, rocket: Rocket, links: Links, localDate: Date) {
+        self.missionName = name
+        self.success = success
+        self.dateUTC = dateUTC
+        self.dateIsTBD = dateTBD
+        self.rocket = rocket
+        self.links = links
+        self.localDate = DateFormatting.utc.date(from: dateUTC)!
+    }
+}
+
+private extension Links {
+    init(patch: Patch = Patch(small: nil, large: nil), cast: URL? = nil, article: URL? = nil, wiki: URL? = nil) {
+        self.patch = patch
+        self.webcast = cast
+        self.article = article
+        self.wikipedia = wiki
+    }
+}
+
+private extension Launch {
+    struct DateFormatting {
+        static var utc: DateFormatter {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
             return formatter
         }
     }
