@@ -20,6 +20,20 @@
                ReferencedContainer = "container:SpaceX.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "30D5410927732F760018B499"
+               BuildableName = "SpaceXUITests.xctest"
+               BlueprintName = "SpaceXUITests"
+               ReferencedContainer = "container:SpaceX.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -46,16 +60,6 @@
                BlueprintIdentifier = "30D540FF27732F760018B499"
                BuildableName = "SpaceXTests.xctest"
                BlueprintName = "SpaceXTests"
-               ReferencedContainer = "container:SpaceX.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "30D5410927732F760018B499"
-               BuildableName = "SpaceXUITests.xctest"
-               BlueprintName = "SpaceXUITests"
                ReferencedContainer = "container:SpaceX.xcodeproj">
             </BuildableReference>
          </TestableReference>

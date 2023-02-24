@@ -20,7 +20,7 @@ struct ChartsView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
                     VStack(spacing: 0) {
                         if let tuples = chartData {
                             ForEach(tuples, id: \.title) { data, title in
-                                SCDonutChartView(data, title: title, formatter: formatter)
+                                SCDonutChartView(title, data: data)
                                 Divider().frame(height: 2).background(Color.gray)
                             }
                         }

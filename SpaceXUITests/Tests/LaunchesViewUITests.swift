@@ -52,8 +52,20 @@ class LaunchesViewUITests: BaseUITestCase {
     }
 
     func testShowLinks() throws {
+//        let httpClient = MockHTTPClient()
+//        httpClient.company = try! JsonLoader.company()
+
+//        runAsyncTest {
+//            // When
+//            let company = try await sut.company()
+//
+//            // Then
+//            XCTAssertNotNil(company)
+//        }
+//
         // When
-        app.tables.cells.element(boundBy: 1).images["Links"].tap()
+        app.navigationBars.firstMatch.buttons["sort"].tap()
+        app.list.element(boundBy: 1).cells.element(boundBy: 1).images["Links"].tap()
 
         //Then
         XCTAssertEqual(app.sheets.buttons.count, 4)

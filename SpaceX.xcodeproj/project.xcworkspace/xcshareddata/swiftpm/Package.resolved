@@ -1,11 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "swifttestniceties",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/otaviokz/SwiftTestNiceties",
+      "state" : {
+        "revision" : "cbe8df91b43b4af626224da4505e5d33305db8b7",
+        "version" : "0.0.4"
+      }
+    },
+    {
       "identity" : "swiftuicharts",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/otaviokz/SwiftUICharts",
       "state" : {
-        "revision" : "b4266f7daf79241358ca1b70942aa97638fa23fa"
+        "revision" : "1d06801097b84c57ebca4fd3076ea6aa7fdeb538",
+        "version" : "1.0.1"
       }
     }
   ],

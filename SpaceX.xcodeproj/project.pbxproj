@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B29AB1A29A8701D0058E72C /* SwiftTestNiceties in Frameworks */ = {isa = PBXBuildFile; productRef = 2B29AB1929A8701D0058E72C /* SwiftTestNiceties */; };
+		2B29AB1D29A8707E0058E72C /* SwiftTestNiceties in Frameworks */ = {isa = PBXBuildFile; productRef = 2B29AB1C29A8707E0058E72C /* SwiftTestNiceties */; };
+		2B29AB1E29A875DC0058E72C /* TestLinks_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D5414E2773378C0018B499 /* TestLinks_v4.json */; };
+		2B29AB1F29A875E20058E72C /* TestPatches_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D541502773378C0018B499 /* TestPatches_v4.json */; };
+		2B29AB2029A875E60058E72C /* TestRockets_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D5414F2773378C0018B499 /* TestRockets_v4.json */; };
+		2B29AB2129A875EA0058E72C /* TestLaunches_PopulatedRockets_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D5414D2773378C0018B499 /* TestLaunches_PopulatedRockets_v4.json */; };
+		2B29AB2229A875EE0058E72C /* TestCompanyInfo_v4.json in Resources */ = {isa = PBXBuildFile; fileRef = 30D5414C2773378C0018B499 /* TestCompanyInfo_v4.json */; };
 		2B95713228DFF2A000B2287F /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B95713128DFF2A000B2287F /* ChartsView.swift */; };
 		2B95713F28E02A9300B2287F /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2B95713E28E02A9300B2287F /* SwiftUICharts */; };
 		3078B945277E0D8900EB7C6D /* Button+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3078B944277E0D8900EB7C6D /* Button+Utils.swift */; };
@@ -146,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B29AB1A29A8701D0058E72C /* SwiftTestNiceties in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,12 +161,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B29AB1D29A8707E0058E72C /* SwiftTestNiceties in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B29AB1B29A8707E0058E72C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		30D540E727732F750018B499 = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +182,7 @@
 				30D5410327732F760018B499 /* SpaceXTests */,
 				30D5410D27732F760018B499 /* SpaceXUITests */,
 				30D540F127732F750018B499 /* Products */,
+				2B29AB1B29A8707E0058E72C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -420,6 +437,9 @@
 				30D5410227732F760018B499 /* PBXTargetDependency */,
 			);
 			name = SpaceXTests;
+			packageProductDependencies = (
+				2B29AB1929A8701D0058E72C /* SwiftTestNiceties */,
+			);
 			productName = SpaceXTests;
 			productReference = 30D5410027732F760018B499 /* SpaceXTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -438,6 +458,9 @@
 				30D5410C27732F760018B499 /* PBXTargetDependency */,
 			);
 			name = SpaceXUITests;
+			packageProductDependencies = (
+				2B29AB1C29A8707E0058E72C /* SwiftTestNiceties */,
+			);
 			productName = SpaceXUITests;
 			productReference = 30D5410A27732F760018B499 /* SpaceXUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -477,6 +500,7 @@
 			mainGroup = 30D540E727732F750018B499;
 			packageReferences = (
 				2B95713D28E02A9300B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
+				2B29AB1829A8701D0058E72C /* XCRemoteSwiftPackageReference "SwiftTestNiceties" */,
 			);
 			productRefGroup = 30D540F127732F750018B499 /* Products */;
 			projectDirPath = "";
@@ -521,6 +545,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B29AB1F29A875E20058E72C /* TestPatches_v4.json in Resources */,
+				2B29AB2129A875EA0058E72C /* TestLaunches_PopulatedRockets_v4.json in Resources */,
+				2B29AB1E29A875DC0058E72C /* TestLinks_v4.json in Resources */,
+				2B29AB2229A875EE0058E72C /* TestCompanyInfo_v4.json in Resources */,
+				2B29AB2029A875E60058E72C /* TestRockets_v4.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -909,17 +938,35 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2B29AB1829A8701D0058E72C /* XCRemoteSwiftPackageReference "SwiftTestNiceties" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/otaviokz/SwiftTestNiceties";
+			requirement = {
+				kind = exactVersion;
+				version = 0.0.4;
+			};
+		};
 		2B95713D28E02A9300B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/otaviokz/SwiftUICharts";
 			requirement = {
-				kind = revision;
-				revision = b4266f7daf79241358ca1b70942aa97638fa23fa;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B29AB1929A8701D0058E72C /* SwiftTestNiceties */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B29AB1829A8701D0058E72C /* XCRemoteSwiftPackageReference "SwiftTestNiceties" */;
+			productName = SwiftTestNiceties;
+		};
+		2B29AB1C29A8707E0058E72C /* SwiftTestNiceties */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B29AB1829A8701D0058E72C /* XCRemoteSwiftPackageReference "SwiftTestNiceties" */;
+			productName = SwiftTestNiceties;
+		};
 		2B95713E28E02A9300B2287F /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2B95713D28E02A9300B2287F /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
