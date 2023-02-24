@@ -47,7 +47,7 @@ struct LaunchRowView: View {
                 if launch.links.hasInfo {
                     Spacer()
                     iconView(Asset.info)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.cyan)
                         .identifierKey(.launch_links)
                         .onTapGesture { infoLinks = InfoLinks(pairs: launch.links.infoLinks) }
                 }
