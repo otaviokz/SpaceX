@@ -15,18 +15,17 @@ struct ChartsView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
             Button(Text(.filter_done)) { dismiss() }
-            
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(spacing: 0) {
                         if let tuples = chartData {
                             ForEach(tuples, id: \.title) { data, title in
-                                SCDonutChartView(data, title: title, formatter: formatter)
+                                SCDonutChartView(title, data: data)
                                 Divider().frame(height: 2).background(Color.gray)
                             }
                         }
                     }
                 }
-        }
+        }.padding([.top], 12)
         
     }
     
@@ -38,12 +37,19 @@ struct ChartsView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     
     private var chartData: [(data: [SCDataPoint], title: String)] {
         var result: [([SCDataPoint], String)] = []
+        
+        if let yearData = yearData {
+            result.append((yearData, "Latest year launches"))
+        }
+        
         if let successData = successData {
             result.append((successData, "Success"))
         }
+        
         if let rocketData = rocketData {
             result.append((rocketData, "Rockets"))
         }
+        
         return result
     }
     
@@ -72,6 +78,23 @@ struct ChartsView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
         return rocketNames.map { name in
             let count = launches.filter { $0.rocket.name.noCaseEquals(name) }.count
             return SCDataPoint(name, value: Double(count), color: .clear)
+        }
+    }
+    
+    private var yearData: [SCDataPoint]? {
+        guard let launches = viewModel.launches else { return nil }
+        
+        let allYears = launches.map { $0.launchYear }
+        let uniqueYears: [Int] = Array(Set(allYears))
+        let dict: [Int: Int] = uniqueYears.reduce([:]) { dictionary, year in
+            var partial = dictionary
+            partial[year] = allYears.filter { $0 == year }.count
+            return partial
+        }
+        
+        
+        return dict.keys.map { key in
+            SCDataPoint("\(key)", value: Double(dict[key] ?? 0), color: .blue)
         }
     }
 }

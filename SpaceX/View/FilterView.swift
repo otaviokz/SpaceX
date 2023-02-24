@@ -13,6 +13,13 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
     @State var showSuccessOnly = false
     @State var showYears = false
     @State var checkedYears = Set<Int>()
+    var numberFormatter = {
+       let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = false
+        return formatter
+    }()
+    
+    
 
     var body: some View {
         VStack() {
@@ -36,14 +43,16 @@ struct FilterView<ViewModel: LaunchesViewModeling & ObservableObject>: View {
                 Section(
                     content: {
                         if showYears {
-                            ForEach(viewModel.allYears, id: \.self) { year in
-                                Button(action: { toggleChecked(year) }) {
-                                    HStack {
-                                        Text("\(year)")
-                                        Spacer()
-                                        Asset
-                                            .checkbox(checkedYears.contains(year))
-                                            .frame(height: Metric.check)
+                            ForEach(viewModel.allYears, id: \.self) { [self] year in
+                                if let yearString = self.numberFormatter.string(for: year) {
+                                    Button(action: { toggleChecked(year) }) {
+                                        HStack {
+                                            Text(yearString)
+                                            Spacer()
+                                            Asset
+                                                .checkbox(checkedYears.contains(year))
+                                                .frame(height: Metric.check)
+                                        }
                                     }
                                 }
                             }
