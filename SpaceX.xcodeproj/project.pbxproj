@@ -913,8 +913,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/otaviokz/SwiftUICharts";
 			requirement = {
-				kind = revision;
-				revision = b4266f7daf79241358ca1b70942aa97638fa23fa;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
